@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="../static/style.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="../static/pics/vibes.jpg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+    {% if title %}
+      <title>{{ title }}</title>
+    {% else %}
+      <title>Vibes</title>
+    {% endif %}
+  </head>
+  <body>
+    <div class="first-nav-bar">
+      <div>
+        <a
+          class="no-decorate"
+          href="{{url_for('home')}}"
+          ><h1 class="logo-bar">
+            Vibes news
+          </h1>
+        </a>
+      </div>
+      <div class="main-link-nav-bar">
+        <span
+          class="material-symbols-outlined"
+        >
+          search
+        </span>
+        <input class="search-input" />
+        <a class="link-nav-bar" href="#"
+          >Search</a
+        >
+        <a
+          class="link-nav-bar"
+          href="{{url_for('about')}}"
+          >About us</a
+        >
+        {% if current_user.is_authenticated %}
+          {% if current_user.admin_rights == 2 %}
+            <a class="link-nav-bar" href="{{url_for('admin_panel')}}">
+              Admin Panel
+            </a>
+          {% elif current_user.admin_rights == 1 %}
+              <a class="link-nav-bar" href="#">
+                Editor Panel
+              </a>
+          {% elif current_user.admin_rights == 0 %}
+              <a class="link-nav-bar" href="#">
+                Account Info
+              </a>
+          {% endif %}
+          <a class="link-nav-bar" href="{{url_for('logout')}}">
+            Logout
+          </a>     
+        {% else %}
+          <a
+            class="link-nav-bar"
+            href="{{url_for('login')}}"
+            >Account</a
+          >
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="second-nav-bar">
+      <div
+        class="secondary-link-nav-bar"
+      >
+        <a
+          class="link-nav-bar second-nav-bar-links"
+          href="#"
+          >News</a
+        >
+        <a
+          class="link-nav-bar second-nav-bar-links"
+          href="#"
+          >Sport</a
+        >
+        <a
+          class="link-nav-bar second-nav-bar-links"
+          href="#"
+          >Buissnes</a
+        >
+        <a
+          class="link-nav-bar second-nav-bar-links"
+          href="#"
+          >Culture</a
+        >
+        <a
+          class="link-nav-bar second-nav-bar-links"
+          href="#"
+          >Game News</a
+        >
+      </div>
+    </div>
+    {% with messages = get_flashed_messages(with_categories = True) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="{{category}}">
+          {{message}}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}
+    {% endblock content %}
+  </body>
+</html>

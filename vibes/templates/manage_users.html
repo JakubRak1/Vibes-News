@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <br><div>Users :</div>
+    {% for user in users %}
+    <div>
+        {% if user.admin_rights == 1 %}
+            Editor {{user.id}}:
+        {% else %}
+            User {{user.id}}:
+        {% endif %}
+        Full Name: {{user.fullname}}, Username: {{user.username}}, Email: {{user.email}}, Admin Rights: {{user.admin_rights}}, Age of account {{time - user.create_time}}, Categories {{user.category}}, Articles {{user.articles}} <a href="{{url_for('edit_user', user_id = user.id)}}">Edit User </a><a href="{{url_for('delete_user', user_id = user.id)}}">Delete Account</a></div> 
+    {% endfor %}
+    <br>
+    <div>
+        <a href="{{url_for('create_user')}}">Create User</a>
+    </div>
+{% endblock content %}

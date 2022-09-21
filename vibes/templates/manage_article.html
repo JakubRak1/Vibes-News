@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <br><div>Posts :</div>
+    {% for article in articles %}
+    <div>
+        Post {{article.id}}, Title: {{article.title}}, Image of Article (src): {{article.image_of_article}}, Subtitle: {{article.subtitle}}, Source: {{article.source}}, Category: {{article.category}}, Author: {{article.author}}, Article time: {{time - article.time_posted}} <a href="{{url_for('article', article_id = article.id)}}">Link to article </a></div> 
+    {% endfor %}
+    <br>
+    <div>
+        <a href="{{url_for('create_article')}}">Create Post</a>
+    </div>
+{% endblock content %}

@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <fieldset>
+      {% if legend %}
+        <legend>{{ legend }}</legend>
+      {% else %}
+        <legend>Vibes Form</legend>
+      {% endif %}
+      <div>
+        {{ form.title.label }} 
+        {% if form.title.errors %}
+          {{form.title}}
+          <div>
+          {% for erorr in form.title.errors %}
+            <span>{{erorr}}</span>
+          {% endfor %}
+          </div>
+        {% else %}
+          {{form.title }}
+        {% endif %}
+      </div>
+      <div>
+        {{ form.image_of_article.label }}
+        {{ form.image_of_article }}
+        {% if form.image_of_article.errors %}
+            {% for erorr in form.image_of_article.errors %}
+                <span>{{erorr}}</span></br>
+            {% endfor %}
+        {% endif %}
+      </div>
+      <div>
+        {{ form.subtitle.label }}
+        {% if form.subtitle.errors %}
+          {{form.subtitle}}
+          <div>
+          {% for erorr in form.subtitle.errors %}
+            <span>{{erorr}}</span>
+          {% endfor %}
+          </div>
+        {% else %}
+          {{form.subtitle }} 
+        {% endif %}
+      </div>
+      <div>
+        {{ form.content.label }}
+        {% if form.content.errors %}
+          {{form.content}}
+          <div>
+          {% for erorr in form.content.errors %}
+            <span>{{erorr}}</span>
+          {% endfor %}
+          </div>
+        {% else %}
+          {{form.content }} 
+        {% endif %}
+      </div>
+      <div>
+        {{ form.source.label }}
+        {% if form.source.errors %}
+          {{form.source}}
+          <div>
+          {% for erorr in form.source.errors %}
+            <span>{{erorr}}</span>
+          {% endfor %}
+          </div>
+        {% else %}
+          {{form.source }} 
+        {% endif %}
+      </div>
+      <div>
+        {{ form.category.label }}
+        {% if form.category.errors %}
+          {{form.category}}
+          <div>
+          {% for erorr in form.category.errors %}
+            <span>{{erorr}}</span>
+          {% endfor %}
+          </div>
+        {% else %}
+          {{form.category }} 
+        {% endif %}
+      </div>
+    </fieldset>
+    <div>{{ form.submit }}</div>
+  </form>
+</div>
+{% endblock content %}

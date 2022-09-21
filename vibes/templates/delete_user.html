@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+      {% if legend %}
+        <legend>{{ legend }}</legend>
+      {% else %}
+        <legend>Vibes Form</legend>
+      {% endif %}
+      <div>
+        {{ form.aprove.label }} 
+        {% if form.aprove.errors %}
+          {{form.aprove}}
+          <div>
+          {% for erorr in form.aprove.errors %}
+            <span>{{erorr}}</span>
+          {% endfor %}
+          </div>
+        {% else %}
+          {{form.aprove }}
+        {% endif %}
+      </div>
+    </fieldset>
+    <div>{{ form.submit }}</div>
+  </form>
+</div>
+{% endblock content %}
