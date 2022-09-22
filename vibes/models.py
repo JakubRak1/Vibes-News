@@ -9,6 +9,7 @@ def load_user(user_id: int) -> object:
     # Function to return User entry by his ID
     return User.query.get(int(user_id))
 
+
 # Constructor to Rights table
 Rights = db.Table('Rights', 
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),

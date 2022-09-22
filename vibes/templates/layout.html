@@ -46,7 +46,7 @@
       <div>
         <a
           class="no-decorate"
-          href="{{url_for('home')}}"
+          href="{{url_for('main.home')}}"
           ><h1 class="logo-bar">
             Vibes news
           </h1>
@@ -64,12 +64,12 @@
         >
         <a
           class="link-nav-bar"
-          href="{{url_for('about')}}"
+          href="{{url_for('main.about')}}"
           >About us</a
         >
         {% if current_user.is_authenticated %}
           {% if current_user.admin_rights == 2 %}
-            <a class="link-nav-bar" href="{{url_for('admin_panel')}}">
+            <a class="link-nav-bar" href="{{url_for('admin.admin_panel')}}">
               Admin Panel
             </a>
           {% elif current_user.admin_rights == 1 %}
@@ -81,13 +81,13 @@
                 Account Info
               </a>
           {% endif %}
-          <a class="link-nav-bar" href="{{url_for('logout')}}">
+          <a class="link-nav-bar" href="{{url_for('users.logout')}}">
             Logout
           </a>     
         {% else %}
           <a
             class="link-nav-bar"
-            href="{{url_for('login')}}"
+            href="{{url_for('users.login')}}"
             >Account</a
           >
         {% endif %}

@@ -8,10 +8,10 @@
         {% else %}
             User {{user.id}}:
         {% endif %}
-        Full Name: {{user.fullname}}, Username: {{user.username}}, Email: {{user.email}}, Admin Rights: {{user.admin_rights}}, Age of account {{time - user.create_time}}, Categories {{user.category}}, Articles {{user.articles}} <a href="{{url_for('edit_user', user_id = user.id)}}">Edit User </a><a href="{{url_for('delete_user', user_id = user.id)}}">Delete Account</a></div> 
+        Full Name: {{user.fullname}}, Username: {{user.username}}, Email: {{user.email}}, Admin Rights: {{user.admin_rights}}, Age of account {{time - user.create_time}}, Categories {{user.category}}, Articles {{user.articles}} <a href="{{url_for('admin.edit_user', user_id = user.id)}}">Edit User </a><a href="{{url_for('admin.delete_user', user_id = user.id)}}">Delete Account</a></div> 
     {% endfor %}
     <br>
     <div>
-        <a href="{{url_for('create_user')}}">Create User</a>
+        <a href="{{url_for('admin.create_user')}}">Create User</a>
     </div>
 {% endblock content %}
