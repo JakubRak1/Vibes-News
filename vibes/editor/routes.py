@@ -2,7 +2,6 @@ from datetime import datetime
 from vibes.models import User, Category
 from flask_login import current_user, login_required
 from flask import render_template, url_for, redirect, abort, Blueprint
-from vibes.models import User
 
 editor = Blueprint('editor', __name__)
 

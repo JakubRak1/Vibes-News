@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <h1>You dont have permission to enter this page</h1>
+        <p>
+            Try contact with admin:
+            <a href ="{{url_for('users.contact_admin')}}">
+                Contact   
+            </a>
+        </p>
+    </div>
+{% endblock content %}

@@ -20,7 +20,7 @@ def admin_panel():
         return render_template('admin_panel.html', title = 'Admin Panel', user = current_user)
         # Passing to admin_panel.html templete user variable
     else:
-        return redirect(url_for('main.home'))
+        abort(403)
         # Redirect to home function
 
 
