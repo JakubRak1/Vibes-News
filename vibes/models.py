@@ -78,3 +78,9 @@ class Article(db.Model):
 
     def __repr__(self) -> str:
         return f"Name of article {self.title}, time posted: {self.time_posted}"
+
+
+class Tokens (db.Model):
+    __bind_key__ = 'two'
+    id = db.Column (db.Integer, primary_key = True)
+    str_of_token = db.Column (db.String(255), nullable = False)
