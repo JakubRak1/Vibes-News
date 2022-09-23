@@ -31,13 +31,16 @@ mail = Mail(app)
 # Create variable mail allows to create mail and send them through mail server 
 
 
-from vibes.admin.routs import admin
-from vibes.articles.routs import articles
-from vibes.users.routs import users
-from vibes.main.routs import main
+from vibes.main.routes import main
+from vibes.articles.routes import articles
+from vibes.users.routes import users
+from vibes.user.routes import user
+from vibes.editor.routes import editor
+from vibes.admin.routes import admin
 
-
-app.register_blueprint(admin)
+app.register_blueprint(main)
 app.register_blueprint(articles)
 app.register_blueprint(users)
-app.register_blueprint(main)
+app.register_blueprint(user)
+app.register_blueprint(editor)
+app.register_blueprint(admin)

@@ -73,7 +73,7 @@
               Admin Panel
             </a>
           {% elif current_user.admin_rights == 1 %}
-              <a class="link-nav-bar" href="#">
+              <a class="link-nav-bar" href="{{url_for('editor.editor_panel')}}">
                 Editor Panel
               </a>
           {% elif current_user.admin_rights == 0 %}

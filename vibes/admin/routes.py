@@ -3,7 +3,7 @@ from flask import render_template, url_for, flash, redirect, abort, Blueprint
 from vibes import db, bcrypt
 from vibes.models import User, Category, Article
 from vibes.admin.forms import RegisterForm, ChangeUserForm, DeleteUserForm, CreateArticleForm
-from vibes.admin.utils import save_picture
+from vibes.articles.utils import save_picture
 from flask_login import current_user, login_required
 
 
@@ -17,7 +17,8 @@ def admin_panel():
     # Function that display admin_panel.html template when url is /admin_panel
     if (current_user.is_authenticated and current_user.admin_rights == 2):
         # Checks if current user object have admin privilige
-        return render_template('admin_panel.html', title = 'Admin Panel')
+        return render_template('admin_panel.html', title = 'Admin Panel', user = current_user)
+        # Passing to admin_panel.html templete user variable
     else:
         return redirect(url_for('main.home'))
         # Redirect to home function
@@ -30,13 +31,11 @@ def manage_users():
     # Function that display manage_users.html template when url is /manage_users
     if (current_user.is_authenticated and current_user.admin_rights == 2):
         # Checks if current user object have admin privilige
-        editors: list[User] = User.query.filter_by(admin_rights = 1).all()
-        users: list[User] = User.query.filter_by(admin_rights = 0).all()
-        all_users: list[User] = editors + users
-        # Create all_users variable that contains all users and editors object 
+        users: list[User] = User.query.filter(User.admin_rights < 2).all()
+        # Create users variable that contains all users object with admin_rights equal to 1 or 0 
         time: object = datetime.utcnow()
         # Create time viarable and set as current time
-        return render_template('manage_users.html', title = 'Admin Panel', users = all_users, time = time )
+        return render_template('manage_users.html', title = 'Admin Panel', users = users, time = time )
         # Passing to manage_users.html templete users and time variable
     else:
         abort(403)

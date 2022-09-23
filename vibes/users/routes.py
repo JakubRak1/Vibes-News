@@ -45,7 +45,7 @@ def logout():
     return redirect(url_for('main.home'))
 
 
-@app.route("/contact", methods = ["GET", "POST"])
+@users.route("/contact", methods = ["GET", "POST"])
 def contact_admin():
     # Function that display contact.html template when url is /contact
     form: object = ContactAdminFrom()
@@ -63,6 +63,9 @@ def contact_admin():
         flash(f'Email was sent to admin, wait for replay')
         return redirect(url_for('main.home'))
         # Display message and redirect to home function
+    if current_user.is_authenticated:
+            form.fullname.data = current_user.fullname
+            form.email.data = current_user.email
     return render_template('contact.html', title = 'Log In', legend = 'Contact with Us', form = form)
     # Passing to contact.html templete form variable
 
