@@ -13,7 +13,7 @@
             <a href="{{url_for('admin.edit_user', user_id = user.id)}}">Edit User </a>
             <a href="{{url_for('admin.delete_user', user_id = user.id)}}">Delete Account</a>
         {% else %}
-            <a href="{{url_for('admin.edit_user', user_id = user.id)}}">Edit User </a>
+            <a href="{{url_for('editor.edit_user_editor', user_id = user.id)}}">Edit User </a>
         {% endif %}
     </div>
     {% endfor %}
@@ -21,7 +21,7 @@
     <div>
         {% if current_user.admin_rights == 2 %}
             <a href="{{url_for('admin.create_user')}}">Create User</a>
-        {% else %}
+        {% elif current_user.admin_rights == 1 %}
             <a href="{{url_for('users.contact_admin')}}">Contact with admin if you want to create new users</a>
         {% endif %}
     </div>

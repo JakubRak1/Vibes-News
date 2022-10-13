@@ -61,19 +61,21 @@
           {{form.password }} 
         {% endif %}
       </div>
-      <div>
-        {{ form.admin_right.label }}
-        {% if form.admin_right.errors %}
-          {{form.admin_right}}
-          <div>
-          {% for erorr in form.admin_right.errors %}
-            <span>{{erorr}}</span>
-          {% endfor %}
-          </div>
-        {% else %}
-          {{form.admin_right }} 
-        {% endif %}
-      </div>
+      {% if current_user.admin_rights == 2 %}
+        <div>
+          {{ form.admin_right.label }}
+          {% if form.admin_right.errors %}
+            {{form.admin_right}}
+            <div>
+            {% for erorr in form.admin_right.errors %}
+              <span>{{erorr}}</span>
+            {% endfor %}
+            </div>
+          {% else %}
+            {{form.admin_right }} 
+          {% endif %}
+        </div>
+      {% endif %}
       <div>
         {{ form.categories.label }}
         {% if form.categories.errors %}
@@ -84,7 +86,7 @@
           {% endfor %}
           </div>
         {% else %}
-          {{form.categories }} 
+          {{ form.categories }} 
         {% endif %}
       </div>
     </fieldset>

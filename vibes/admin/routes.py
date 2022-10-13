@@ -24,7 +24,7 @@ def admin_panel():
         # Redirect to home function
 
 
-@admin.route("/admin_panel/manage_users" , methods= ["GET", "POST"])
+@admin.route("/admin_panel/manage_users" , methods= ["GET"])
 @login_required
 # To access this template user need to be log in
 def manage_users():
@@ -76,8 +76,8 @@ def edit_user(user_id: int):
         form.username.data: str = user.username
         form.email.data: str = user.email
         # Sets form space as current user properties from database
-        return render_template('edit_user.html', title = 'Edit User', legend = 'Edit User', user = user, form = form)
-        # Passing to edit_users.html templete user and form variable
+        return render_template('edit_user.html', title = 'Edit User', legend = 'Edit User', current_user = current_user, form = form)
+        # Passing to edit_users.html templete user, current_user and form variable
     else:
         abort(403)
         # Display error
@@ -137,7 +137,7 @@ def create_user():
         # Display error
 
 
-@admin.route("/admin_panel/manage_article" , methods= ["GET", "POST"])
+@admin.route("/admin_panel/manage_article" , methods= ["GET"])
 @login_required
 # To access this template user need to be log in
 def manage_article():
