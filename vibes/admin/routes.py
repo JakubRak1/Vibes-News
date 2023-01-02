@@ -148,7 +148,7 @@ def manage_article():
         # Create articles variable that contains all Article object 
         time = datetime.utcnow()
         # Create time viarable and set as current time
-        return render_template('manage_article.html', title = 'Admin Panel', articles = articles, time = time)
+        return render_template('manage_article.html', title = 'Admin Panel', articles = articles, time = time, user = current_user)
         # Passing to manage_article.html templete article and form variable
     else:
         abort(403)

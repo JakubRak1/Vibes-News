@@ -3,7 +3,8 @@ from vibes.models import User, Category, Article
 from vibes import db, bcrypt
 from flask_login import current_user, login_required
 from flask import render_template, url_for, redirect, abort, flash, Blueprint
-from vibes.editor.forms import ChangeUserFormEditor
+from vibes.editor.forms import ChangeUserFormEditor, CreateArticleForm
+from vibes.articles.utils import save_picture
 
 editor = Blueprint('editor', __name__)
 
@@ -82,7 +83,7 @@ def edit_user_editor(user_id: int):
         form.username.data: str = user.username
         form.email.data: str = user.email
         # Sets form space as current user properties from database
-        return render_template('edit_user.html', title = 'Edit User', legend = 'Edit User', current_user=current_user, form = form)
+        return render_template('edit_user.html', title = 'Edit User', legend = 'Edit User', current_user = current_user, form = form)
         # Passing to edit_users.html templete user, current_user and form variable
     else:
         abort(403)
@@ -97,44 +98,47 @@ def manage_article_editor():
         # Checks if current user object have admin privilige
         editor_articles: list = []
         for category in current_user.category:
-            article_cat: list[Article] = Article.query.filter(Category.articles(Category.name == category.name)).all()
+            article_cat: list[Article] = Article.query.filter(Article.category_id == category.id).all()
             editor_articles += article_cat #To fix all articles is showing
         time = datetime.utcnow()
-        return render_template('manage_article.html', title = 'Editor Panel', articles = editor_articles, time = time)
+        return render_template('manage_article.html', title = 'Editor Panel', articles = editor_articles, time = time, user = current_user)
         # Passing to manage_article.html templete articles variables
     else:
         abort(403)
         # Display error
 
 
-# @editor.route("/editor_panel/create_article" , methods= ["GET", "POST"])
-# @login_required
-# # To access this template user need to be log in
-# def create_article():
-# # Function that display create_article.html template when url is /admin_panel/create_article
-#     if (current_user.is_authenticated and current_user.admin_rights == 1):
-#         # Checks if current user object have admin privilige
-#         form: object = CreateArticleForm()
-#         # Set form as CreateArticleForm from vibes.forms
-#         if form.validate_on_submit():
-#             # Check if submit is correct and create user
-#             if form.image_of_article.data:
-#                 # Check if user filled form.image_of_article
-#                 picture_file: str = save_picture(form.image_of_article.data)
-#                 article: Article = Article(title = form.title.data, image_of_article = picture_file, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
-#                 # Save picture on local storage and set article as new Article object with provided through form data                
-#             else: 
-#                 article = Article(title = form.title.data, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
-#                 # Set article as new Article object with provided through form data without image   
-#             db.session.add(article)
-#             # Add article to database
-#             db.session.commit()
-#             # Saves changes to database
-#             flash(f'Article added succusfully')
-#             return redirect(url_for('admin.manage_article'))
-#             # Display message and redirect to manage_article function
-#         return render_template('create_article.html', title = 'Admin Panel', legend = 'Create Article', form = form)
-#         # Passing to manage_article.html templete form variable
-#     else:
-#         abort(403)
-#         # Display error
+@editor.route("/editor_panel/create_article" , methods= ["GET", "POST"])
+@login_required
+# To access this template user need to be log in
+def create_article():
+# Function that display create_article.html template when url is /admin_panel/create_article
+    if (current_user.is_authenticated and current_user.admin_rights == 1):
+        # Checks if current user object have admin privilige
+        categories_of_editor: list = []
+        for category in current_user.category:
+            categories_of_editor.append(category)
+        form: object = CreateArticleForm()
+        form.category.choices = [(cat.name, cat.name) for cat in categories_of_editor]
+        if form.validate_on_submit():
+            # Check if submit is correct and create user
+            if form.image_of_article.data:
+                # Check if user filled form.image_of_article
+                picture_file: str = save_picture(form.image_of_article.data)
+                article: Article = Article(title = form.title.data, image_of_article = picture_file, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
+                # Save picture on local storage and set article as new Article object with provided through form data                
+            else: 
+                article = Article(title = form.title.data, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
+                # Set article as new Article object with provided through form data without image   
+            db.session.add(article)
+            # Add article to database
+            db.session.commit()
+            # Saves changes to database
+            flash(f'Article added succusfully')
+            return redirect(url_for('editor.manage_article_editor'))
+            # Display message and redirect to manage_article function
+        return render_template('create_article.html', title = 'Admin Panel', legend = 'Create Article', form = form)
+        # Passing to manage_article.html templete form variable
+    else:
+        abort(403)
+        # Display error

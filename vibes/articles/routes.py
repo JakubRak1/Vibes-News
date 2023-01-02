@@ -43,10 +43,19 @@ def edit_article(article_id: int):
     # Function that display edit_article.html template when url is /article/edit_{article_id}
     current_article: Article = Article.query.get_or_404(article_id)
     # Try to find Article data in database if not display error 
-    if (current_user.is_authenticated and (current_user.admin_rights == 2 or (current_user.admin_rights == 1 and current_user.category in current_article.category) or (current_user in current_article.author))):
+    cat_list_id: list = []
+    for cat in current_user.category:
+        cat_list_id.append(cat.id)
+    # Format category of current user to compare with article category id
+    if (current_user.is_authenticated and (current_user.admin_rights == 2 or (current_user.admin_rights == 1 and current_article.category_id in cat_list_id) or (current_article.user_id == current_user.id))):
         # Checks if logged user have privilege to edit Article
         form: object = ChangeArticleForm()
         # Set form as CreateArticleForm from vibes.forms
+        if (current_user.admin_rights != 2):
+            categories_of_user: list = []
+            for category in current_user.category:
+                categories_of_user.append(category)
+            form.category.choices = [(cat.name, cat.name) for cat in categories_of_user]
         if form.validate_on_submit():
             # Check if submit is correct and edit article data 
             current_article.title: str = form.title.data
@@ -88,8 +97,12 @@ def edit_article(article_id: int):
 def delete_article(article_id: int):
     # Function that display delete_article.html template when url is /article/delete_{article_id}
     current_article = Article.query.get_or_404(article_id)
-    # Try to find Article data in database if not display error 
-    if (current_user.is_authenticated and (current_user.admin_rights == 2 or (current_user.admin_rights == 1 and current_user.category in current_article.category) or (current_user in current_article.author))):
+    # Try to find Article data in database if not display error
+    cat_list_id: list = []
+    for cat in current_user.category:
+        cat_list_id.append(cat.id)
+    # Format category of current user to compare with article category id 
+    if (current_user.is_authenticated and (current_user.admin_rights == 2 or (current_user.admin_rights == 1 and current_article.category_id in cat_list_id) or (current_article.user_id == current_user.id))):
         # Checks if logged user have privilege to edit Article
         form: object = DeleteArticleForm()
          # Set form as CreateArticleForm from vibes.forms

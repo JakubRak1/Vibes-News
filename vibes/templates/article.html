@@ -17,5 +17,5 @@
     {% if option %}
         <a href="{{url_for('articles.edit_article', article_id = article.id)}}">Edit Article</a>
         <a href="{{url_for('articles.delete_article', article_id = article.id)}}">Delete Article</a>
-    {% endif %}    
+    {% endif %}   
 {% endblock content %}

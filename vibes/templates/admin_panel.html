@@ -7,7 +7,7 @@
         {% elif user.admin_rights == 1 %}
             <a href="{{url_for('editor.manage_users_editor')}}">Manage Users</a>
             <a href="{{url_for('editor.manage_article_editor')}}">Manage Posts</a>
-            <a href="#">Edit Account</a>
+            <a href="{{url_for('user.edit_account')}}">Edit Account</a>
         {% else %}
             <a href="#">Manage Posts</a>
             <a href="#">Edit Account</a>

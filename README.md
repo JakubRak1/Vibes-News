@@ -23,16 +23,16 @@ ___
 * [x] Editor Panel
     * [x] User Managment
         * [x] Edit User
-    * [ ] Post Managment
-        * [ ] Create Post
-        * [ ] Edit Post
-        * [ ] Delete Post
+    * [X] Post Managment
+        * [X] Create Post
+        * [X] Edit Post
+        * [X] Delete Post
 * [ ] User Panel
     * [ ] Edit Account
     * [ ] Post Managment
         * [ ] Create Post
-        * [ ] Edit Post
-        * [ ] Delete Post
+        * [X] Edit Post
+        * [X] Delete Post
 * [x] Post View
 * [ ] Search Post
 * [ ] View Post by Category

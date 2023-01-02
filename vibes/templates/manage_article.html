@@ -7,6 +7,12 @@
     {% endfor %}
     <br>
     <div>
+        {% if user.admin_rights == 2 %}
         <a href="{{url_for('admin.create_article')}}">Create Post</a>
+        {% elif user.admin_rights == 1 %}
+        <a href="{{url_for('editor.create_article')}}">Create Post</a>
+        {% elif user.admin_rights == 0 %}
+        <a href="#">Create Post</a>
+        {% endif %}
     </div>
 {% endblock content %}
