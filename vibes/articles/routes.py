@@ -23,7 +23,7 @@ def article(article_id: int):
         elif(current_user.admin_rights == 1 and current_article.category in current_user.category):
             # Checks if loged user is editor, and have category right of article category then create variable edit_delete with value of 1 
             edit_delete: int = 1
-        elif(current_user in current_article.author):
+        elif(current_article.user_id == current_user.id):
             # Checks if loged user is author of article, then create variable edit_delete with value of 1 
             edit_delete: int = 1
         else:

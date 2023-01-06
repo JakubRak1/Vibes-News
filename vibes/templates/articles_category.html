@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for article in Articles.items %}
+        <div>
+            <img src="{{url_for('static', filename = 'pics/' + article.image_of_article)}}">
+            <div>{{ article.title }}</div>
+            <div>{{ article.subtitle }}</div>
+            <div>{{ article.time_posted.strftime('%Y-%m-%d %A') }}</div>
+        </div>
+    {% endfor %}
+    {% for page_num in Articles.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 2) %}
+        {% if page_num %}
+            {% if Articles.page == page_num %}
+            <a href="{{url_for('users.news_articles', page=page_num)}}">{{ page_num }}+</a>
+            {% else %}
+            <a href="{{url_for('users.news_articles', page=page_num)}}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ... 
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

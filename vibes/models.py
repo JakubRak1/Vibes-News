@@ -1,7 +1,9 @@
 from datetime import datetime
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from vibes import db, login_manager, app
+
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+from vibes import app, db, login_manager
 
 
 @login_manager.user_loader

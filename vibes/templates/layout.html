@@ -77,8 +77,8 @@
                 Editor Panel
               </a>
           {% elif current_user.admin_rights == 0 %}
-              <a class="link-nav-bar" href="#">
-                Account Info
+              <a class="link-nav-bar" href="{{url_for('user.user_panel')}}">
+                Account Panel
               </a>
           {% endif %}
           <a class="link-nav-bar" href="{{url_for('users.logout')}}">
@@ -100,27 +100,27 @@
       >
         <a
           class="link-nav-bar second-nav-bar-links"
-          href="#"
+          href="{{url_for('users.news_articles')}}"
           >News</a
         >
         <a
           class="link-nav-bar second-nav-bar-links"
-          href="#"
+          href="{{url_for('users.sport_articles')}}"
           >Sport</a
         >
         <a
           class="link-nav-bar second-nav-bar-links"
-          href="#"
+          href="{{url_for('users.buissnes_articles')}}"
           >Buissnes</a
         >
         <a
           class="link-nav-bar second-nav-bar-links"
-          href="#"
+          href="{{url_for('users.culture_articles')}}"
           >Culture</a
         >
         <a
           class="link-nav-bar second-nav-bar-links"
-          href="#"
+          href="{{url_for('users.game_articles')}}"
           >Game News</a
         >
       </div>

@@ -9,8 +9,8 @@
             <a href="{{url_for('editor.manage_article_editor')}}">Manage Posts</a>
             <a href="{{url_for('user.edit_account')}}">Edit Account</a>
         {% else %}
-            <a href="#">Manage Posts</a>
-            <a href="#">Edit Account</a>
+            <a href="{{url_for('user.manage_article_user')}}">Manage Posts</a>
+            <a href="{{url_for('user.edit_account')}}">Edit Account</a>
         {% endif %}
     </div>
 {% endblock content %}

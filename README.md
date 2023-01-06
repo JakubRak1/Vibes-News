@@ -27,10 +27,10 @@ ___
         * [X] Create Post
         * [X] Edit Post
         * [X] Delete Post
-* [ ] User Panel
-    * [ ] Edit Account
-    * [ ] Post Managment
-        * [ ] Create Post
+* [X] User Panel
+    * [X] Edit Account
+    * [X] Post Managment
+        * [X] Create Post
         * [X] Edit Post
         * [X] Delete Post
 * [x] Post View

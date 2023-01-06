@@ -1,10 +1,12 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
-from vibes import app, db, bcrypt, mail
-from vibes.models import User
-from vibes.users.forms import LoginForm, RequestResetForm, ContactAdminFrom, ResetPasswordForm
-from vibes.users.utils import send_reset_email
-from flask_login import login_user, current_user, logout_user, login_required
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 from flask_mail import Message
+
+from vibes import app, bcrypt, db, mail
+from vibes.models import Article, User
+from vibes.users.forms import (ContactAdminFrom, LoginForm, RequestResetForm,
+                               ResetPasswordForm)
+from vibes.users.utils import send_reset_email
 
 users = Blueprint('users', __name__)
 
@@ -120,3 +122,35 @@ def reset_token(token):
         # After successfully changing password redirecting to login function
     return render_template('set_password.html', title = 'Set Password', legend = 'Set Password', form = form )
     # Passing to set_password.html templete form variable
+
+
+@users.route("/news", methods = ["GET"])
+def news_articles():
+    page = request.args.get('page', 1, type=int)
+    news_articles = Article.query.filter(Article.category_id == 1).paginate(page=page, per_page = 1)
+    return render_template('articles_category.html', title = 'News Articles', Articles = news_articles)
+
+@users.route("/sport", methods = ["GET"])
+def sport_articles():
+    page = request.args.get('page', 1, type=int)
+    sport_articles = Article.query.filter(Article.category_id == 2).paginate(page=page, per_page = 3)
+    return render_template('articles_category.html', title = 'Sport Articles', Articles = sport_articles)
+
+@users.route("/buissnes", methods = ["GET"])
+def buissnes_articles():
+    page = request.args.get('page', 1, type=int)
+    buissnes_articles = Article.query.filter(Article.category_id == 3).paginate(page=page, per_page = 3)
+    return render_template('articles_category.html', title = 'Buissnes Articles', Articles = buissnes_articles)
+
+@users.route("/culture", methods = ["GET"])
+def culture_articles():
+    page = request.args.get('page', 1, type=int)
+    culture_articles = Article.query.filter(Article.category_id == 4).paginate(page=page, per_page = 3)
+    return render_template('articles_category.html', title = 'Culture Articles', Articles = culture_articles)
+
+
+@users.route("/game", methods = ["GET"])
+def game_articles():
+    page = request.args.get('page', 1, type=int)
+    game_articles = Article.query.filter(Article.category_id == 5).paginate(page=page, per_page = 3)
+    return render_template('articles_category.html', title = 'Game News Articles', Articles = game_articles)

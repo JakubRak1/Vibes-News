@@ -1,10 +1,12 @@
 from datetime import datetime
-from vibes.models import User, Category, Article
-from vibes import db, bcrypt
+
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
-from flask import render_template, url_for, redirect, abort, flash, Blueprint
-from vibes.editor.forms import ChangeUserFormEditor, CreateArticleForm
+
+from vibes import bcrypt, db
 from vibes.articles.utils import save_picture
+from vibes.editor.forms import ChangeUserFormEditor, CreateArticleForm
+from vibes.models import Article, Category, User
 
 editor = Blueprint('editor', __name__)
 
@@ -137,7 +139,7 @@ def create_article():
             flash(f'Article added succusfully')
             return redirect(url_for('editor.manage_article_editor'))
             # Display message and redirect to manage_article function
-        return render_template('create_article.html', title = 'Admin Panel', legend = 'Create Article', form = form)
+        return render_template('create_article.html', title = 'Editor Panel', legend = 'Create Article', form = form)
         # Passing to manage_article.html templete form variable
     else:
         abort(403)

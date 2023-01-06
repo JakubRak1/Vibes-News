@@ -3,11 +3,93 @@ from vibes.models import User, Category, Article
 from vibes import db, bcrypt
 from flask_login import current_user, login_required
 from flask import render_template, url_for, redirect, flash, Blueprint, abort
-from vibes.user.forms import ChangeUserFormEditor
+from vibes.user.forms import ChangeUserFormEditor, CreateArticleForm
+from vibes.articles.utils import save_picture
 
 
 
 user = Blueprint('user', __name__)
+
+@user.route("/user_panel")
+@login_required
+# To access this template user need to be log in
+def user_panel():
+    # Function that display admin_panel.html template when url is /admin_panel
+    if (current_user.is_authenticated and current_user.admin_rights == 0):
+        # Checks if current user object have editor privilige
+        return render_template('admin_panel.html', title = 'Account Panel', user = current_user)
+        # Passing to admin_panel.html templete user variable
+    else:
+        return redirect(url_for('main.home'))
+        # Redirect to home function
+
+
+@user.route("/user_panel/manage_article" , methods= ["GET"])
+@login_required
+def manage_article_user():
+    # Function that display manage_article.html template when url is /editor_panel/manage_article
+    if (current_user.is_authenticated and current_user.admin_rights == 0):
+        # Checks if current user object have admin privilige
+        user_articles: list = Article.query.filter(Article.user_id == current_user.id).all()
+        time = datetime.utcnow()
+        return render_template('manage_article.html', title = 'User Panel', articles = user_articles, time = time, user = current_user)
+        # Passing to manage_article.html templete articles variables
+    else:
+        abort(403)
+        # Display error
+
+
+@user.route("/user_panel/create_article" , methods= ["GET", "POST"])
+@login_required
+# To access this template user need to be log in
+def create_article():
+# Function that display create_article.html template when url is /admin_panel/create_article
+    if (current_user.is_authenticated and current_user.admin_rights == 0):
+        # Checks if current user object have admin privilige
+        categories_of_user: list = []
+        for category in current_user.category:
+            categories_of_user.append(category)
+        form: object = CreateArticleForm()
+        form.category.choices = [(cat.name, cat.name) for cat in categories_of_user]
+        if form.validate_on_submit():
+            # Check if submit is correct and create user
+            if form.image_of_article.data:
+                # Check if user filled form.image_of_article
+                picture_file: str = save_picture(form.image_of_article.data)
+                article: Article = Article(title = form.title.data, image_of_article = picture_file, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
+                # Save picture on local storage and set article as new Article object with provided through form data                
+            else: 
+                article = Article(title = form.title.data, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
+                # Set article as new Article object with provided through form data without image   
+            db.session.add(article)
+            # Add article to database
+            db.session.commit()
+            # Saves changes to database
+            flash(f'Article added succusfully')
+            return redirect(url_for('user.manage_article_user'))
+            # Display message and redirect to manage_article function
+        return render_template('create_article.html', title = 'USer Panel', legend = 'Create Article', form = form)
+        # Passing to manage_article.html templete form variable
+    else:
+        abort(403)
+        # Display error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @user.route("/edit_account", methods = ["GET", "POST"])
 @login_required
