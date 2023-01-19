@@ -1,12 +1,12 @@
 from datetime import datetime
-from vibes.models import User, Category, Article
-from vibes import db, bcrypt
+
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
-from flask import render_template, url_for, redirect, flash, Blueprint, abort
-from vibes.user.forms import ChangeUserFormEditor, CreateArticleForm
+
+from vibes import bcrypt, db
 from vibes.articles.utils import save_picture
-
-
+from vibes.models import Article, Category, User
+from vibes.user.forms import ChangeUserFormEditor, CreateArticleForm
 
 user = Blueprint('user', __name__)
 

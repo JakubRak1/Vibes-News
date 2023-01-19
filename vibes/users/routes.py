@@ -127,7 +127,7 @@ def reset_token(token):
 @users.route("/news", methods = ["GET"])
 def news_articles():
     page = request.args.get('page', 1, type=int)
-    news_articles = Article.query.filter(Article.category_id == 1).paginate(page=page, per_page = 1)
+    news_articles = Article.query.filter(Article.category_id == 1).paginate(page=page, per_page = 3)
     return render_template('articles_category.html', title = 'News Articles', Articles = news_articles)
 
 @users.route("/sport", methods = ["GET"])

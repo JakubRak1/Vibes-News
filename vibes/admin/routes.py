@@ -1,11 +1,13 @@
 from datetime import datetime
-from flask import render_template, url_for, flash, redirect, abort, Blueprint
-from vibes import db, bcrypt
-from vibes.models import User, Category, Article
-from vibes.admin.forms import RegisterForm, ChangeUserForm, DeleteUserForm, CreateArticleForm
-from vibes.articles.utils import save_picture
+
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
+from vibes import bcrypt, db
+from vibes.admin.forms import (ChangeUserForm, CreateArticleForm,
+                               DeleteUserForm, RegisterForm)
+from vibes.articles.utils import save_picture
+from vibes.models import Article, Category, User
 
 admin = Blueprint('admin', __name__)
 
@@ -95,12 +97,15 @@ def delete_user(user_id):
         form: object = DeleteUserForm()
         # Set form as DeleteUserForm from vibes.forms
         if form.validate_on_submit():
-            # Check if submit is correct and delete user from database 
-            db.session.delete(user)
-            # Dele user object from database
+            # Check if submit is correct and delete user from database also change authors of deleted user articles
+            articles_deleted_user: Article = Article.query.filter_by(user_id=user.id).all()
+            for article in articles_deleted_user:
+                article.user_id = current_user.id
+            # Changing article author to prevent erorr on page
             db.session.commit()
-            # Saving changes to database
-            flash(f'User deleted from db')
+            db.session.delete(user)
+            db.session.commit()
+            flash(f'User deleted from db, also all articles of deleted user has author to admin')
             return redirect(url_for('admin.manage_users'))
             # Display message and redirect to manage_users function
         return render_template('delete_user.html', title = 'Delete User', legend = 'Delete User', form = form)

@@ -35,7 +35,7 @@ ___
         * [X] Delete Post
 * [x] Post View
 * [ ] Search Post
-* [ ] View Post by Category
+* [X] View Post by Category
 ---
 ## How to Lunch
 ### Be sure to have instaled on your machine python modules:
