@@ -1,7 +1,8 @@
 from flask import url_for
-from vibes import mail , db
-from vibes.models import Tokens
 from flask_mail import Message
+
+from vibes import db, mail
+from vibes.models import Tokens
 
 
 def send_reset_email(user):

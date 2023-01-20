@@ -1,11 +1,12 @@
 import os
-from flask import render_template, url_for, flash, redirect, abort, Blueprint
-from vibes import app, db
-from vibes.models import Category, Article
-from vibes.articles.forms import ChangeArticleForm, DeleteArticleForm
-from vibes.articles.utils import save_picture
+
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
+from vibes import app, db
+from vibes.articles.forms import ChangeArticleForm, DeleteArticleForm
+from vibes.articles.utils import save_picture
+from vibes.models import Article, Category
 
 articles = Blueprint('articles', __name__)
 
@@ -84,7 +85,7 @@ def edit_article(article_id: int):
         form.content.data = current_article.content
         form.source.data = current_article.source
         # Sets form space as current user properties from database
-        return render_template('edit_article.html', title = 'Edit Article', legend = 'Edit Article', form = form)
+        return render_template('edit_article.html', title = 'Edit Article', legend = 'Edit Article', form = form, article=current_article)
         # Passing to edit_article.html templete form variable
     else:
         abort(403)

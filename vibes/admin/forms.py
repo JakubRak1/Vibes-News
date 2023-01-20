@@ -1,7 +1,10 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, PasswordField, SubmitField, SelectField, SelectMultipleField, BooleanField
-from wtforms.validators import data_required, Length, Email, ValidationError
+from flask_wtf.file import FileAllowed, FileField
+from wtforms import (BooleanField, PasswordField, SelectField,
+                     SelectMultipleField, StringField, SubmitField,
+                     TextAreaField)
+from wtforms.validators import Email, Length, ValidationError, data_required
+
 from vibes.models import Article, Category, User
 
 

@@ -1,9 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 # Initialize of whole application
@@ -32,13 +31,18 @@ mail = Mail(app)
 # Create variable mail allows to create mail and send them through mail server 
 
 
-from vibes.main.routes import main
-from vibes.articles.routes import articles
-from vibes.users.routes import users
-from vibes.user.routes import user
-from vibes.editor.routes import editor
+# TO DO DATA ENTER FOR DOCKER VERSION WITH DB
+# from file .articles_data
+#  
+# 
+
 from vibes.admin.routes import admin
+from vibes.articles.routes import articles
+from vibes.editor.routes import editor
 from vibes.errors.handlers import errors
+from vibes.main.routes import main
+from vibes.user.routes import user
+from vibes.users.routes import users
 
 app.register_blueprint(main)
 app.register_blueprint(articles)

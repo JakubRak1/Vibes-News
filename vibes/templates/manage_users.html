@@ -1,28 +1,62 @@
 {% extends "layout.html" %}
 {% block content %}
-    <br><div>Users :</div>
-    {% for user in users %}
-    <div>
-        {% if user.admin_rights == 1 %}
-            Editor {{user.id}}:
-        {% else %}
-            User {{user.id}}:
-        {% endif %}
-        Full Name: {{user.fullname}}, Username: {{user.username}}, Email: {{user.email}}, Admin Rights: {{user.admin_rights}}, Age of account {{time - user.create_time}}, Categories {{user.category}}, Articles {{user.articles}} 
-        {% if current_user.admin_rights == 2 %}
-            <a href="{{url_for('admin.edit_user', user_id = user.id)}}">Edit User </a>
-            <a href="{{url_for('admin.delete_user', user_id = user.id)}}">Delete Account</a>
-        {% else %}
-            <a href="{{url_for('editor.edit_user_editor', user_id = user.id)}}">Edit User </a>
-        {% endif %}
-    </div>
-    {% endfor %}
-    <br>
-    <div>
-        {% if current_user.admin_rights == 2 %}
-            <a href="{{url_for('admin.create_user')}}">Create User</a>
-        {% elif current_user.admin_rights == 1 %}
-            <a href="{{url_for('users.contact_admin')}}">Contact with admin if you want to create new users</a>
-        {% endif %}
+    <div class="font-style-root d-flex flex-column mt-5">
+        <div class="font-weight-bold h1 d-flex justify-content-center mb-5">Manage Users</div>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Function</th>
+                    <th class="text-center" scope="col">Full Name</th>
+                    <th class="text-center" scope="col">Username</th>
+                    <th class="text-center" scope="col">Email</th>
+                    <th class="text-center" scope="col">Age of Account</th>
+                    <th class="text-center" scope="col">Categories</th>
+                    <th class="text-center" scope="col">Articles</th>
+                    <th class="text-center" scope="col">Edit/Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    {% if user.admin_rights == 1 %}
+                        <th class="text-center" scope="row">Editor ID: {{user.id}}</th>
+                    {% else %}
+                        <th class="text-center" scope="row">User ID: {{user.id}}</th>
+                    {% endif %}
+                        <td  class="text-center">{{user.fullname}}</td>
+                        <td  class="text-center">{{user.username}}</td>
+                        <td  class="text-center">{{user.email}}</td>
+                        <td  class="text-center">{{(time - user.create_time)}}</td>
+                        {% if user.category == [] %}
+                            <td  class="text-center">None</td>
+                        {% else %}
+                            <td  class="text-center">{{user.category}}</td>
+                        {% endif %}
+                        {% if user.articles == [] %}
+                            <td  class="text-center">None</td>
+                        {% else %}
+                            <td  class="text-center">{{user.articles}}</td>
+                        {% endif %}
+                    {% if current_user.admin_rights == 2 %}
+                        <td  class="text-center">
+                            <a class="btn btn-outline-primary mr-2" href="{{url_for('admin.edit_user', user_id = user.id)}}">Edit User </a>
+                            <a class="btn btn-outline-danger ml-2" href="{{url_for('admin.delete_user', user_id = user.id)}}">Delete Account</a>
+                        </td>
+                    {% else %}
+                        <td  class="text-center">
+                            <a class="btn btn-outline-primary" href="{{url_for('editor.edit_user_editor', user_id = user.id)}}">Edit User </a>
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}  
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-3">
+            {% if current_user.admin_rights == 2 %}
+                <a class="btn btn-outline-dark btn-lg" href="{{url_for('admin.create_user')}}">Create User</a>
+            {% elif current_user.admin_rights == 1 %}
+                <a class="font-weight-bold d-flex justify-content-center" href="{{url_for('users.contact_admin')}}">Contact with admin if you want to create new users</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock content %}

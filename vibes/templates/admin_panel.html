@@ -1,16 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
+    <div class="font-style-root d-flex flex-column mt-5">
         {% if user.admin_rights == 2 %}
-            <a href="{{url_for('admin.manage_users')}}">Manage Users</a>
-            <a href="{{url_for('admin.manage_article')}}">Manage Posts</a>
+            <span class="font-weight-bold h1 d-flex justify-content-center mb-5">Admin Panel</span>
+            <div class="d-flex flex-row justify-content-center">
+                <a class="btn btn-outline-dark btn-lg mr-5" href="{{url_for('admin.manage_users')}}">Manage Users</a>
+                <a class="btn btn-outline-dark btn-lg ml-5" href="{{url_for('admin.manage_article')}}">Manage Posts</a>
+            </div>
         {% elif user.admin_rights == 1 %}
-            <a href="{{url_for('editor.manage_users_editor')}}">Manage Users</a>
-            <a href="{{url_for('editor.manage_article_editor')}}">Manage Posts</a>
-            <a href="{{url_for('user.edit_account')}}">Edit Account</a>
+            <span class="font-weight-bold h1 d-flex justify-content-center mb-5">Editor Panel</span>
+            <div class="d-flex flex-row justify-content-center">
+                <a class="btn btn-outline-dark btn-lg mr-5" href="{{url_for('editor.manage_users_editor')}}">Manage Users</a>
+                <a class="btn btn-outline-dark btn-lg mr-5 ml-5" href="{{url_for('editor.manage_article_editor')}}">Manage Posts</a>
+                <a class="btn btn-outline-dark btn-lg ml-5" href="{{url_for('user.edit_account')}}">Edit Account</a>
+            </div>
         {% else %}
-            <a href="{{url_for('user.manage_article_user')}}">Manage Posts</a>
-            <a href="{{url_for('user.edit_account')}}">Edit Account</a>
+            <span class="font-weight-bold h1 d-flex justify-content-center mb-5">User Panel</span>
+            <div class="d-flex flex-row justify-content-center">
+                <a class="btn btn-outline-dark btn-lg mr-5" href="{{url_for('user.manage_article_user')}}">Manage Posts</a>
+                <a class="btn btn-outline-dark btn-lg ml-5" href="{{url_for('user.edit_account')}}">Edit Account</a>
+            </div>
         {% endif %}
     </div>
 {% endblock content %}

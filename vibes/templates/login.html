@@ -1,55 +1,53 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
-  <form method="POST" action="">
+  <form class="font-style-root d-flex flex-column mt-5" method="POST" action="">
     {{ form.hidden_tag() }}
     <fieldset>
       {% if legend %}
-        <legend>{{ legend }}</legend>
+        <legend class="d-flex justify-content-center font-weight-bold mb-3">{{ legend }}</legend>
       {% else %}
-        <legend>Vibes Form</legend>
+        <legend class="d-flex justify-content-center font-weight-bold mb-3">Vibes Form</legend>
       {% endif %}
-      <div>
-        {{ form.email.label }} 
+      <div class="form-group mb-3">
+        {{ form.email.label(class="d-flex justify-content-center") }} 
         {% if form.email.errors %}
-          {{form.email}}
-          <div>
+          {{form.email(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.email.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.email }}
+          {{form.email(class="form-control", style="width:25%; margin-left:37.5%;") }}
         {% endif %}
       </div>
-      <div>
-        {{ form.password.label }}
+      <div class="form-group mb-1">
+        {{ form.password.label(class="d-flex justify-content-center") }}
         {% if form.password.errors %}
-          {{form.password}}
-          <div>
+          {{form.password(class="form-control d-flex justify-content-center", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.password.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.password }} 
+          {{form.password(class="form-control d-flex justify-content-center", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
-      <a
+      <a class="link-primary d-flex justify-content-center mb-3"
         href="{{url_for('users.reset_password')}}"
         >Resset Password</a
       >
     </fieldset>
-    <div>{{ form.submit }}</div>
-    <div>
-      If you don't have account, you can
-      request it by entering this
-      <a
+    <div class="d-flex justify-content-center mb-2">{{ form.submit(class="btn btn-primary") }}</div>
+    <div class="font-weight-bold d-flex justify-content-center">
+      If you don't have account
+      you can request it by entering this
+      <a class="mr-1 ml-1"
         href="{{url_for('users.contact_admin')}}"
-        >link</a
+        > link </a
       >
       and filling form
     </div>
   </form>
-</div>
 {% endblock content %}

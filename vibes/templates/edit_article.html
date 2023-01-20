@@ -1,90 +1,95 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
-  <form method="POST" action="" enctype="multipart/form-data">
+  <form class="font-style-root d-flex flex-column mt-5" method="POST" action="" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <fieldset>
       {% if legend %}
-        <legend>{{ legend }}</legend>
+        <legend class="d-flex justify-content-center font-weight-bold mb-3">
+          {{legend}} 
+          <span class="font-weight-normal font-italic ml-2">
+            "{{article.title}}"
+          </span>
+        </legend>
       {% else %}
-        <legend>Vibes Form</legend>
+        <legend class="d-flex justify-content-center font-weight-bold mb-3">Vibes Form</legend>
       {% endif %}
-      <div>
-        {{ form.title.label }} 
+      <div class="form-group mb-3">
+        {{ form.title.label(class="d-flex justify-content-center") }} 
         {% if form.title.errors %}
-          {{form.title}}
-          <div>
+          {{form.title(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.title.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.title }}
+          {{form.title(class="form-control", style="width:25%; margin-left:37.5%;") }}
         {% endif %}
       </div>
-      <div>
-        {{ form.image_of_article.label }}
-        {{ form.image_of_article }}
+      <div class="custom-file mb-3">
+        {{ form.image_of_article (class="custom-file-input", style="width:25%; margin-left:37.5%;")}}
+        {{ form.image_of_article.label(class="d-flex justify-content-center custom-file-label", style="width:25%; margin-left:37.5%;") }}
         {% if form.image_of_article.errors %}
+        {{ form.image_of_article (class="custom-file-input", style="width:25%; margin-left:37.5%;")}}
+        {{ form.image_of_article.label(class="d-flex justify-content-center custom-file-label", style="width:25%; margin-left:37.5%;") }}
             {% for erorr in form.image_of_article.errors %}
-                <span>{{erorr}}</span></br>
+                <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
             {% endfor %}
         {% endif %}
       </div>
-      <div>
-        {{ form.subtitle.label }}
+      <div class="form-group mb-3">
+        {{ form.subtitle.label(class="d-flex justify-content-center") }}
         {% if form.subtitle.errors %}
-          {{form.subtitle}}
-          <div>
+          {{form.subtitle(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.subtitle.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.subtitle }} 
+          {{form.subtitle(class="form-control", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
-      <div>
-        {{ form.content.label }}
+      <div class="form-group mb-3">
+        {{ form.content.label(class="d-flex justify-content-center") }}
         {% if form.content.errors %}
-          {{form.content}}
-          <div>
+          {{form.content(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.content.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.content }} 
+          {{form.content(class="form-control", style="width:25%; padding-bottom: clamp(10%, 20%, 25%); margin-left:37.5%;")}} 
         {% endif %}
       </div>
-      <div>
-        {{ form.source.label }}
+      <div class="form-group mb-3">
+        {{ form.source.label(class="d-flex justify-content-center") }}
         {% if form.source.errors %}
-          {{form.source}}
-          <div>
+          {{form.source(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.source.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.source }} 
+          {{form.source(class="form-control", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
-      <div>
-        {{ form.category.label }}
+      <div class="form-group mb-3">
+        {{ form.category.label(class="d-flex justify-content-center") }}
         {% if form.category.errors %}
-          {{form.category}}
-          <div>
+          {{form.category(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.category.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.category }} 
+          {{form.category(class="form-control", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
     </fieldset>
-    <div>{{ form.submit }}</div>
+    <div class="d-flex justify-content-center">{{ form.submit(class="btn btn-outline-primary") }}</div>
   </form>
-</div>
 {% endblock content %}

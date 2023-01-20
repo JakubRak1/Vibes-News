@@ -1,5 +1,6 @@
 import os
 import secrets
+
 from vibes import app
 
 

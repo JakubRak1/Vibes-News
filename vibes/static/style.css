@@ -87,3 +87,7 @@
 .second-column-main {
   margin-right: 10vw;
 }
+
+.font-style-root{
+  font-family: var(--font-family);
+}

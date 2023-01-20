@@ -1,96 +1,94 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
-  <form method="POST" action="">
+  <form class="font-style-root d-flex flex-column mt-5" method="POST" action="">
     {{ form.hidden_tag() }}
     <fieldset>
       {% if legend %}
-        <legend>{{ legend }}</legend>
+        <legend class="d-flex justify-content-center font-weight-bold mb-3">{{ legend }}</legend>
       {% else %}
-        <legend>Vibes Form</legend>
+        <legend class="d-flex justify-content-center font-weight-bold mb-3">Vibes Form</legend>
       {% endif %}
-      <div>
-        {{ form.fullname.label }} 
+      <div class="form-group mb-3">
+        {{ form.fullname.label(class="d-flex justify-content-center") }} 
         {% if form.fullname.errors %}
-          {{form.fullname}}
-          <div>
+          {{form.fullname(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.fullname.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.fullname }}
+          {{form.fullname(class="form-control", style="width:25%; margin-left:37.5%;") }}
         {% endif %}
       </div>
-      <div>
-        {{ form.username.label }}
+      <div class="form-group mb-3">
+        {{ form.username.label(class="d-flex justify-content-center") }}
         {% if form.username.errors %}
-          {{form.username}}
-          <div>
+          {{form.username(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.username.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.username }} 
+          {{form.username(class="form-control", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
-      <div>
-        {{ form.email.label }}
+      <div class="form-group mb-3">
+        {{ form.email.label(class="d-flex justify-content-center") }}
         {% if form.email.errors %}
-          {{form.email}}
-          <div>
+          {{form.email(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.email.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.email }} 
+          {{form.email(class="form-control", style="width:25%; margin-left:37.5%;")}} 
         {% endif %}
       </div>
-      <div>
-        {{ form.password.label }}
+      <div class="form-group mb-3">
+        {{ form.password.label(class="d-flex justify-content-center") }}
         {% if form.password.errors %}
-          {{form.password}}
-          <div>
+          {{form.password(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.password.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{form.password }} 
+          {{form.password(class="form-control", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
       {% if current_user.admin_rights == 2 %}
-        <div>
-          {{ form.admin_right.label }}
+        <div class="form-group mb-3">
+          {{ form.admin_right.label(class="d-flex justify-content-center") }}
           {% if form.admin_right.errors %}
-            {{form.admin_right}}
-            <div>
+            {{form.admin_right(class="form-control", style="width:25%; margin-left:37.5%;")}}
+            <div class="d-flex justify-content-center mt-2">
             {% for erorr in form.admin_right.errors %}
-              <span>{{erorr}}</span>
+              <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
             {% endfor %}
             </div>
           {% else %}
-            {{form.admin_right }} 
+            {{form.admin_right(class="form-control", style="width:25%; margin-left:37.5%;") }} 
           {% endif %}
         </div>
       {% endif %}
-      <div>
-        {{ form.categories.label }}
+      <div class="form-group mb-3">
+        {{ form.categories.label(class="d-flex justify-content-center") }}
         {% if form.categories.errors %}
-          {{form.categories}}
-          <div>
+          {{form.categories(class="form-control", style="width:25%; margin-left:37.5%;")}}
+          <div class="d-flex justify-content-center mt-2">
           {% for erorr in form.categories.errors %}
-            <span>{{erorr}}</span>
+            <span class="font-weight-bold border border-danger text-center" style="width: 25%;">{{erorr}}</span>
           {% endfor %}
           </div>
         {% else %}
-          {{ form.categories }} 
+          {{ form.categories(class="form-control", style="width:25%; margin-left:37.5%;") }} 
         {% endif %}
       </div>
     </fieldset>
-    <div>{{ form.submit }}</div>
+    <div class="d-flex justify-content-center">{{ form.submit(class="btn btn-outline-primary") }}</div>
   </form>
-</div>
 {% endblock content %}

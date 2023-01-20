@@ -1,18 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
-    <br><div>Posts :</div>
-    {% for article in articles %}
-    <div>
-        Post {{article.id}}, Title: {{article.title}}, Image of Article (src): {{article.image_of_article}}, Subtitle: {{article.subtitle}}, Source: {{article.source}}, Category: {{article.category}}, Author: {{article.author}}, Article time: {{time - article.time_posted}} <a href="{{url_for('articles.article', article_id = article.id)}}">Link to article </a></div> 
-    {% endfor %}
-    <br>
-    <div>
-        {% if user.admin_rights == 2 %}
-        <a href="{{url_for('admin.create_article')}}">Create Post</a>
-        {% elif user.admin_rights == 1 %}
-        <a href="{{url_for('editor.create_article')}}">Create Post</a>
-        {% elif user.admin_rights == 0 %}
-        <a href="{{url_for('user.create_article')}}">Create Post</a>
-        {% endif %}
+    <div class="font-style-root d-flex flex-column mt-5">    
+        <div class="font-weight-bold h1 d-flex justify-content-center mb-5">Manage Articles</div>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">ID Post</th>
+                    <th class="text-center" scope="col">Title</th>
+                    <th class="text-center" scope="col">Source of Image</th>
+                    <th class="text-center" scope="col">Subtitle</th>
+                    <th class="text-center" scope="col">Source</th>
+                    <th class="text-center" scope="col">Category</th>
+                    <th class="text-center" scope="col">Author Username</th>
+                    <th class="text-center" scope="col">Article Post Time</th>
+                    <th class="text-center" scope="col">Link to Article</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <th class="text-center" scope="row">Article ID: {{article.id}}</th>
+                        <td class="text-truncate text-center" style="max-width: 150px;">{{article.title}}</td>
+                        <td class="text-truncate text-center" style="max-width: 150px;">{{article.image_of_article}}</td>
+                        <td class="text-truncate text-center" style="max-width: 150px;">{{article.subtitle}}</td>
+                        <td class="text-truncate text-center">{{article.source}}</td>
+                        <td class="text-truncate text-center">{{article.category}}</td>
+                        <td class="text-truncate text-center">{{article.author.username}}</td>
+                        <td class="text-truncate text-center">{{time - article.time_posted}}</td>
+                        <td class="d-flex justify-content-center px-1 py-1">
+                            <a class="btn btn-outline-primary" href="{{url_for('articles.article', article_id = article.id)}}">Link</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-3">
+            {% if user.admin_rights == 2 %}
+            <a class="btn btn-outline-dark btn-lg" href="{{url_for('admin.create_article')}}">Create Article</a>
+            {% elif user.admin_rights == 1 %}
+            <a class="btn btn-outline-dark btn-lg" href="{{url_for('editor.create_article')}}">Create Article</a>
+            {% elif user.admin_rights == 0 %}
+            <a class="btn btn-outline-dark btn-lg" href="{{url_for('user.create_article')}}">Create Article</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock content %}

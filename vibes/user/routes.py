@@ -75,22 +75,6 @@ def create_article():
         # Display error
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @user.route("/edit_account", methods = ["GET", "POST"])
 @login_required
 def edit_account():
@@ -108,11 +92,11 @@ def edit_account():
             # Clearing user category priviliges
             db.session.commit()
             # Saving changes to database
-            flash(f'Account Edited')
+            flash(f'Account edited and saved changes')
             if (current_user.admin_rights == 1):
-                return redirect(url_for('editor.manage_users_editor'))
+                return redirect(url_for('editor.editor_panel'))
             elif(current_user.admin_rights == 0):
-                return 'to Change'
+                return redirect(url_for('user.user_panel'))
             # Display message and redirect to manage_users_editor function
         form.fullname.data: str= user.fullname
         form.username.data: str = user.username
