@@ -77,7 +77,7 @@ def edit_article(article_id: int):
                 # Save picture on local storage and set article pictore property from form data 
             db.session.commit()
             # Saves changes to database
-            flash(f'Changes accepted')
+            flash(f'Changes accepted', 'text-success')
             return redirect(url_for('articles.article', article_id = current_article.id))
             # Display message and redirect to article function
         form.title.data = current_article.title
@@ -118,7 +118,7 @@ def delete_article(article_id: int):
             # Delete current_article from database
             db.session.commit()
             # Saves changes to database
-            flash(f'Article deleted from db')
+            flash(f'Article deleted from db', 'text-danger')
             return redirect(url_for('main.home'))
             # Display message and redirect to home function
         return render_template('delete_user.html', title = 'Delete Article', legend = 'Delete Article', form = form)

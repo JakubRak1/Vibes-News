@@ -78,7 +78,7 @@ def edit_user_editor(user_id: int):
                 user.category.append(cat)
             db.session.commit()
             # Saving changes to database
-            flash(f'Changes accepted')
+            flash(f'Changes accepted', 'text-success')
             return redirect(url_for('editor.manage_users_editor'))
             # Display message and redirect to manage_users_editor function
         form.fullname.data: str= user.fullname
@@ -136,7 +136,7 @@ def create_article():
             # Add article to database
             db.session.commit()
             # Saves changes to database
-            flash(f'Article added succusfully')
+            flash(f'Article added succusfully', 'text-success')
             return redirect(url_for('editor.manage_article_editor'))
             # Display message and redirect to manage_article function
         return render_template('create_article.html', title = 'Editor Panel', legend = 'Create Article', form = form)

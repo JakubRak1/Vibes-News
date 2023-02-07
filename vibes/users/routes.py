@@ -27,12 +27,12 @@ def login():
             login_user(user)
             # Logs user in
             next_page = request.args.get('next')
-            flash(f'Login Succusefully, Welcome {user.fullname}', 'succsess')
+            flash(f'Login Succusefully, Welcome {user.fullname}', 'text-succsess')
             # Display sucess message
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
             # Redirect to page that required login
         else:
-            flash(f'Login Unsuccusefully, check email and password again')
+            flash(f'Login Unsuccusefully, check email and password again', 'text-warning')
             # Display error message
     return render_template('login.html', title = 'Log In', legend = 'Log In', form = form)
     # Passing to article.html templete form variable
@@ -62,7 +62,7 @@ def contact_admin():
         # Set mail properties as title, sender, reciver and content
         mail.send(msg)
         # Sends mail
-        flash(f'Email was sent to admin, wait for replay')
+        flash(f'Email was sent to admin, wait for replay', 'text-success')
         return redirect(url_for('main.home'))
         # Display message and redirect to home function
     if current_user.is_authenticated:
@@ -86,10 +86,10 @@ def reset_password():
         if user:
             # Check if user is object and runs function send_reset_email with user object
             send_reset_email(user)
-            flash(f'Email with reset link sent to {form.email.data}', 'succsess')
+            flash(f'Email with reset link sent to {form.email.data}', 'text-succsess')
             return redirect(url_for('users.login'))
         else:
-            flash(f'There is no account with email: {form.email.data}')
+            flash(f'There is no account with email: {form.email.data}', 'text-warning')
             # Display error message
     return render_template('reset_password.html', title = 'Reset Password', legend = 'Reset Password', form = form)
     # Passing to reset_password.html templete form variable
@@ -104,7 +104,7 @@ def reset_token(token):
     user = User.verify_reset_token(token)
     if user is None: 
         # Check if token was invalid
-        flash('Thats its invalid token or its expired')
+        flash('Thats its invalid token or its expired', 'text-danger')
          # Display error message
         return redirect(url_for('users.reset_password'))
     form: object = ResetPasswordForm()
@@ -117,7 +117,7 @@ def reset_token(token):
         # Set user password as new hased password
         db.session.commit()
         # Saving changes to database
-        flash('Your password is changed you can log now with him', 'succes')
+        flash('Your password is changed you can log now with him', 'text-succes')
         return redirect(url_for('users.login'))
         # After successfully changing password redirecting to login function
     return render_template('set_password.html', title = 'Set Password', legend = 'Set Password', form = form )

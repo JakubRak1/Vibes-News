@@ -65,7 +65,7 @@ def create_article():
             # Add article to database
             db.session.commit()
             # Saves changes to database
-            flash(f'Article added succusfully')
+            flash(f'Article added succusfully', 'text-success')
             return redirect(url_for('user.manage_article_user'))
             # Display message and redirect to manage_article function
         return render_template('create_article.html', title = 'USer Panel', legend = 'Create Article', form = form)
@@ -92,7 +92,7 @@ def edit_account():
             # Clearing user category priviliges
             db.session.commit()
             # Saving changes to database
-            flash(f'Account edited and saved changes')
+            flash(f'Account edited and saved changes', 'text-success')
             if (current_user.admin_rights == 1):
                 return redirect(url_for('editor.editor_panel'))
             elif(current_user.admin_rights == 0):

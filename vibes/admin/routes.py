@@ -71,7 +71,7 @@ def edit_user(user_id: int):
                 user.category.append(cat)
             db.session.commit()
             # Saving changes to database
-            flash(f'Changes accepted')
+            flash(f'Changes accepted', 'text-success')
             return redirect(url_for('admin.manage_users'))
             # Display message and redirect to manage_users function
         form.fullname.data: str= user.fullname
@@ -105,7 +105,7 @@ def delete_user(user_id):
             db.session.commit()
             db.session.delete(user)
             db.session.commit()
-            flash(f'User deleted from db, also all articles of deleted user has author to admin')
+            flash(f'User deleted from db, also all articles of deleted user has author to admin', 'text-danger')
             return redirect(url_for('admin.manage_users'))
             # Display message and redirect to manage_users function
         return render_template('delete_user.html', title = 'Delete User', legend = 'Delete User', form = form)
@@ -132,7 +132,7 @@ def create_user():
             # Add user to database
             db.session.commit()
             # Save changes to database
-            flash(f'Account created succusfully')
+            flash(f'Account created succusfully', 'text-success')
             return redirect(url_for('admin.manage_users'))
             # Display message and redirect to manage_users function
         return render_template('create_user.html', title = 'Admin Panel', legend = 'Create User', form = form)
@@ -183,7 +183,7 @@ def create_article():
             # Add article to database
             db.session.commit()
             # Saves changes to database
-            flash(f'Article added succusfully')
+            flash(f'Article added succusfully', 'text-success')
             return redirect(url_for('admin.manage_article'))
             # Display message and redirect to manage_article function
         return render_template('create_article.html', title = 'Admin Panel', legend = 'Create Article', form = form)
