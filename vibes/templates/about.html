@@ -1,12 +1,87 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div class="two-colums-main"> 
-        <div class="first-column-main">
-            <h1> Vibes News First Column About Info</h1>
+{% extends "layout.html" %} {% block content %}
+<div class="d-flex flex-row justify-content-center mt-5">
+  <div class="col-sm-6">
+    <h1 class="text-center mb-5">Vibes News technology</h1>
+    <ul class="list-group">
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3">Docker</span>
+        <img class="img-fluid" src="https://skillicons.dev/icons?i=docker" />
+      </li>
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3">Python</span>
+        <img class="img-fluid" src="https://skillicons.dev/icons?i=python" />
+      </li>
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3">Flask Framework</span>
+        <img class="img-fluid" src="https://skillicons.dev/icons?i=flask" />
+      </li>
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3 ml-5"> Flask Packages </span>
+        <div>
+          <img
+            class="img-fluid"
+            src="../static/pics/flask-mail-icon.PNG"
+            style="width: 48px"
+          />
+          <img
+            class="img-fluid"
+            src="../static/pics/flask-sql-icon.PNG"
+            style="width: 48px"
+          />
+          <img
+            class="img-fluid"
+            src="../static/pics/flask-wtf-icon.PNG"
+            style="width: 48px"
+          />
+          <img
+            class="img-fluid"
+            src="../static/pics/flask-dangerous-icon.PNG"
+            style="width: 48px"
+          />
         </div>
-        <div class="second-column-main">
-            <h2> Vibes News Second Column About Info</h2>
+      </li>
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3">Bootstrap</span>
+        <img class="img-fluid" src="https://skillicons.dev/icons?i=bootstrap" />
+      </li>
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3 ml-5">Templates</span>
+        <div>
+          <img
+            class="img-fluid"
+            src="https://skillicons.dev/icons?i=html,css"
+          />
+          <img
+            class="img-fluid"
+            src="../static/pics/Jinja_software_logo.svg "
+            style="width: 96px"
+          />
         </div>
-    </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h2 class="text-center mb-5">
+      In order to generate random news and also random image used AI
+    </h2>
+    <ul class="list-group">
+      <li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3 ml-5">OpenAI ChatGPT</span>
+        <img
+          class="img-fluid"
+          src="../static/pics/chat.PNG"
+          style="width: 48px"
+        />
+      </li>
+      <li li class="list-group-item border-0 d-flex justify-content-around">
+        <span class="font-weight-bold h3 ml-5">OpenAI DALL·E</span>
+        <img
+          class="img-fluid"
+          src="../static/pics/dalee.PNG"
+          style="width: 48px"
+        />
+      </li>
+    </ul>
+  </div>
+</div>
 {% endblock content %}
-<!-- TO DO FRONTEND -->

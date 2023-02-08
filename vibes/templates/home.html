@@ -1,5 +1,87 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Not Yet Ready comming soon..</h1>
-    <!-- TO DO FRONTEND -->
+    <div class="d-flex justify-content-center">
+        <div id="carousel" class="carousel slide img-fluid mt-3" data-ride="carousel" style="width:40vw; object-fit: cover; height: 20vw;">
+            <ol class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+            <li data-target="#carousel" data-slide-to="3"></li>
+            <li data-target="#carousel" data-slide-to="4"></li>
+            </ol>
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a href="{{url_for('articles.article', article_id = carousel_item_first.id)}}">
+                    <img class="d-block w-100 rounded img-fluid" src="{{url_for('static', filename = 'pics/' + carousel_item_first.image_of_article)}}" style="width:40vw; object-fit: cover; height: 20vw;" alt="First slide">
+                </a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="font-weight-bold">{{carousel_item_first.title}}</h5>
+                    <p class="font-weight-bold">{{carousel_item_first.subtitle}}</p>
+                </div>
+            </div>
+            <!-- petla -->
+            {% for item in carousel_items %}
+                <div class="carousel-item">
+                    <a href="{{url_for('articles.article', article_id = item.id)}}">
+                        <img class="d-block w-100 rounded img-fluid" src="{{url_for('static', filename = 'pics/' + item.image_of_article)}}" style="width:40vw; object-fit: cover; height: 20vw;" alt="Next slide">
+                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="font-weight-bold">{{item.title}}</h5>
+                        <p class="font-weight-bold">{{item.subtitle}}</p>
+                    </div>
+                </div>
+            {% endfor %} 
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-between ml-5 align-items-between mr-5">
+        <div class="d-flex flex-column col-2">
+            <h1 class="font-weight-bold text-center">News</h1>
+            {% for article in news %}
+            <a href="{{url_for('articles.article', article_id = article.id)}}">
+                <span class="text-truncate" style="display:block">{{article.title}}</span>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="d-flex flex-column col-2">
+            <h1 class="font-weight-bold text-center">Sport</h1>
+            {% for article in sport %}
+            <a href="{{url_for('articles.article', article_id = article.id)}}">
+                <span class="text-truncate" style="display:block">{{article.title}}</span>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="d-flex flex-column col-2">
+            <h1 class="font-weight-bold text-center">Buissnes</h1>
+            {% for article in buissnes %}
+            <a href="{{url_for('articles.article', article_id = article.id)}}">
+                <span  class="text-truncate" style="display:block">{{article.title}}</span>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="d-flex flex-column col-2">
+            <h1 class="font-weight-bold text-center">Culture</h1>
+            {% for article in culture %}
+            <a href="{{url_for('articles.article', article_id = article.id)}}">
+                <span  class="text-truncate" style="display:block">{{article.title}}</span>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="d-flex flex-column col-2">
+            <h1 class="font-weight-bold text-center">Game News</h1>
+            {% for article in game_news %}
+            <a href="{{url_for('articles.article', article_id = article.id)}}">
+                <span  class="text-truncate" style="display:block">{{article.title}}</span>
+            </a>
+            {% endfor %}
+        </div>
+      </div>
 {% endblock content %}

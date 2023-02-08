@@ -1,9 +1,10 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div>
-        <h1>Page not found (404)</h1>
-        <p>
-            The page you are looking does not exist
-        </p>
-    </div>
+{% extends "layout.html" %} {% block content %}
+<div class="d-flex flex-column mt-5">
+  <h1 class="text-uppercase font-weight-bold text-center">
+    Page not found (404)
+  </h1>
+  <div class="font-weight-bold d-flex justify-content-center">
+    The page you are looking does not exist
+  </div>
+</div>
 {% endblock content %}

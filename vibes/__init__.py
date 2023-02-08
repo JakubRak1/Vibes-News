@@ -11,6 +11,10 @@ app.config['SECRET_KEY'] = '532f7ffa0a70512660d0bc83ad3388c0'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 # Set sql db as local file (in future changed to other source) 
 app.config['SQLALCHEMY_BINDS'] = {'two': 'sqlite:///tokens.db'}
+# Docker conversion
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+
 db = SQLAlchemy(app)
 # Create variable db contains database 
 bcrypt = Bcrypt(app)

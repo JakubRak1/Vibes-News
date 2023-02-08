@@ -33,7 +33,7 @@ def article(article_id: int):
     else:
         # If user is not login create variable edit_delete with value of 0 
         edit_delete: int = 0
-    return render_template('article.html', title = 'Article from', option = edit_delete, article = current_article)
+    return render_template('article.html', title = current_article.title, option = edit_delete, article = current_article)
     # Passing to article.html templete edit_delete variable and current_article object
 
 

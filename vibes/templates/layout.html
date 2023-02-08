@@ -43,93 +43,86 @@
     {% endif %}
   </head>
   <body class="mx-3 my-2">
-    <div class="first-nav-bar">
-      <div>
-        <a
-          class="no-decorate"
-          href="{{url_for('main.home')}}"
-          ><h1 class="logo-bar">
-            Vibes news
-          </h1>
-        </a>
-      </div>
-      <div class="main-link-nav-bar">
-        <span
-          class="material-symbols-outlined"
-        >
-          search
-        </span>
-        <input class="search-input" />
-        <a class="link-nav-bar" href="#"
-          >Search</a
-        >
-        <a
-          class="link-nav-bar"
-          href="{{url_for('main.about')}}"
-          >About us</a
-        >
-        {% if current_user.is_authenticated %}
-          {% if current_user.admin_rights == 2 %}
-            <a class="link-nav-bar" href="{{url_for('admin.admin_panel')}}">
-              Admin Panel
-            </a>
-          {% elif current_user.admin_rights == 1 %}
-              <a class="link-nav-bar" href="{{url_for('editor.editor_panel')}}">
-                Editor Panel
-              </a>
-          {% elif current_user.admin_rights == 0 %}
-              <a class="link-nav-bar" href="{{url_for('user.user_panel')}}">
-                Account Panel
-              </a>
-          {% endif %}
-          <a class="link-nav-bar" href="{{url_for('users.logout')}}">
-            Logout
-          </a>     
-        {% else %}
+    <header>
+      <div class="first-nav-bar">
+        <div>
+          <a
+            class="no-decorate"
+            href="{{url_for('main.home')}}"
+            ><h1 class="logo-bar">
+              Vibes news
+            </h1>
+          </a>
+        </div>
+        <div class="main-link-nav-bar">
           <a
             class="link-nav-bar"
-            href="{{url_for('users.login')}}"
-            >Account</a
+            href="{{url_for('main.about')}}"
+            >About us</a
           >
-        {% endif %}
+          {% if current_user.is_authenticated %}
+            {% if current_user.admin_rights == 2 %}
+              <a class="link-nav-bar" href="{{url_for('admin.admin_panel')}}">
+                Admin Panel
+              </a>
+            {% elif current_user.admin_rights == 1 %}
+                <a class="link-nav-bar" href="{{url_for('editor.editor_panel')}}">
+                  Editor Panel
+                </a>
+            {% elif current_user.admin_rights == 0 %}
+                <a class="link-nav-bar" href="{{url_for('user.user_panel')}}">
+                  Account Panel
+                </a>
+            {% endif %}
+            <a class="link-nav-bar" href="{{url_for('users.logout')}}">
+              Logout
+            </a>     
+          {% else %}
+            <a
+              class="link-nav-bar"
+              href="{{url_for('users.login')}}"
+              >Account</a
+            >
+          {% endif %}
+        </div>
       </div>
-    </div>
 
-    <div class="second-nav-bar">
-      <div
-        class="secondary-link-nav-bar"
-      >
-        <a
-          class="link-nav-bar second-nav-bar-links"
-          href="{{url_for('users.news_articles')}}"
-          >News</a
+      <div class="second-nav-bar">
+        <div
+          class="secondary-link-nav-bar"
         >
-        <a
-          class="link-nav-bar second-nav-bar-links"
-          href="{{url_for('users.sport_articles')}}"
-          >Sport</a
-        >
-        <a
-          class="link-nav-bar second-nav-bar-links"
-          href="{{url_for('users.buissnes_articles')}}"
-          >Buissnes</a
-        >
-        <a
-          class="link-nav-bar second-nav-bar-links"
-          href="{{url_for('users.culture_articles')}}"
-          >Culture</a
-        >
-        <a
-          class="link-nav-bar second-nav-bar-links"
-          href="{{url_for('users.game_articles')}}"
-          >Game News</a
-        >
+          <a
+            class="link-nav-bar second-nav-bar-links"
+            href="{{url_for('users.news_articles')}}"
+            >News</a
+          >
+          <a
+            class="link-nav-bar second-nav-bar-links"
+            href="{{url_for('users.sport_articles')}}"
+            >Sport</a
+          >
+          <a
+            class="link-nav-bar second-nav-bar-links"
+            href="{{url_for('users.buissnes_articles')}}"
+            >Buissnes</a
+          >
+          <a
+            class="link-nav-bar second-nav-bar-links"
+            href="{{url_for('users.culture_articles')}}"
+            >Culture</a
+          >
+          <a
+            class="link-nav-bar second-nav-bar-links"
+            href="{{url_for('users.game_articles')}}"
+            >Game News</a
+          >
+        </div>
       </div>
-    </div>
+      </header>
     {% with messages = get_flashed_messages(with_categories = True) %}
       {% if messages %}
         {% for category, message in messages %}
-          <div class="{{category}}">
+          <div class="{{category}} d-flex justify-content-center mt-2 font-weight-bold">
           {{message}}
           </div>
         {% endfor %}
@@ -140,5 +133,23 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <footer class="text-center text-white footer-vibes mt-5">
+      <div class="container">
+          <p class="d-flex justify-content-center align-items-center">
+            <div class="me-3">You can find me</div>
+            <div>
+                <a href="https://www.linkedin.com/in/jakub-rak-a13383119">
+                  <img src="../static/pics/iconmonstr-linkedin-3.svg" class="btn btn-rounded">
+                </a>
+              <a href="https://github.com/JakubRak1">
+                <img src="../static/pics/iconmonstr-github-3.svg" class="btn btn-rounded">
+              </a>
+            </div>
+          </p>
+      </div>
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright: Jakub Rak
+      </div>
+    </footer>
   </body>
 </html>

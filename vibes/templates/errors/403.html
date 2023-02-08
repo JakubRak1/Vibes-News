@@ -1,12 +1,11 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div>
-        <h1>You dont have permission to enter this page</h1>
-        <p>
-            Try contact with admin:
-            <a href ="{{url_for('users.contact_admin')}}">
-                Contact   
-            </a>
-        </p>
-    </div>
+{% extends "layout.html" %} {% block content %}
+<div class="d-flex flex-column mt-5">
+  <h1 class="text-uppercase font-weight-bold text-center">
+    You dont have permission to enter this page
+  </h1>
+  <div class="font-weight-bold d-flex justify-content-center">
+    Try contact with admin:
+    <a class="mr-1 ml-1" href="{{url_for('users.contact_admin')}}"> Contact </a>
+  </div>
+</div>
 {% endblock content %}
