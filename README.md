@@ -63,3 +63,11 @@ ___
   docker-compose up -d db_second # Run second db in background on port 5433
   docker-compose up pythonapp # Run python app on port 5000
 ```
+## To test functionality of the site use this emails and password
+```bash
+  email: admin@gmail.com password: 123 # Admin Account
+  email: editor1@gmail.com password: 123 # First Editor Account
+  email: editor2@gmail.com password: 123 # Second Editor Account
+  email: user1@gmail.com password: 123 # First User Account
+  email: user2@gmail.com password: 123 # Second User Account
+```
