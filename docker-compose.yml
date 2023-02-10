@@ -9,8 +9,10 @@ services:
       - "127.0.0.1:5000:5000"
     environment:
       - DATABASE_URL=postgresql://postgres_user:123@db_site:5432/db_site
-      - BINDS_URL =postgresql://postgres_user:123@db_tokens:5432/db_tokens
+      - BINDS_URL =postgresql://postgres_user:123@db_tokens:5433/db_tokens
       - SECRET_KEY=532f7ffa0a70512660d0bc83ad3388c0
+      - MAIL_USERNAME=cc247b2204acaa
+      - MAIL_PASSWORD=516d30cc44f9e2
     depends_on:
       - db_first
       - db_second
@@ -26,9 +28,9 @@ services:
       - POSTGRES_PASSWORD=123
       - POSTGRES_USER=postgres_user
       - POSTGRES_DB=db_site
-      - PGDATA=/var/lib/postgres/data/pgdata
+      - PGDATA=/var/lib/postgres/data/pg_first_data
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg_first_data:/var/lib/postgresql/data
 
 
   db_second:
@@ -36,15 +38,16 @@ services:
     image: postgres:12
     restart: always
     ports:
-      - "127.0.0.1:5433:5433"
+      - "127.0.0.1:5433:5432"
     environment:
       - POSTGRES_PASSWORD=123
       - POSTGRES_USER=postgres_user
       - POSTGRES_DB=db_tokens
-      - PGDATA=/var/lib/postgres/data/pgdata
+      - PGDATA=/var/lib/postgres/data/pg_second_data
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg_second_data:/var/lib/postgresql/data
 
 
 volumes:
-  pgdata: {}
+  pg_first_data: {}
+  pg_second_data: {}

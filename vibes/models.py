@@ -9,7 +9,7 @@ from vibes import app, db, login_manager
 @login_manager.user_loader
 def load_user(user_id: int) -> object:
     # Function to return User entry by his ID
-    return User.query.get(int(user_id))
+    return db.session.query(User).get(int(user_id))
 
 
 # Constructor to Rights table
@@ -46,7 +46,7 @@ class User(db.Model, UserMixin):
             user_id = s.loads(token)['user_id']
         except:
             return None
-        return User.query.get(user_id)
+        return db.session.query(User).get(user_id)
 
 
     def __repr__(self) -> str:
@@ -79,7 +79,7 @@ class Article(db.Model):
 
 
     def __repr__(self) -> str:
-        return f"Name of article {self.title}, time posted: {self.time_posted}"
+        return f"{self.title}"
 
 
 class Tokens (db.Model):

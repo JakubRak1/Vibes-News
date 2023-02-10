@@ -33,7 +33,7 @@ def manage_users():
     # Function that display manage_users.html template when url is /manage_users
     if (current_user.is_authenticated and current_user.admin_rights == 2):
         # Checks if current user object have admin privilige
-        users: list[User] = User.query.filter(User.admin_rights < 2).all()
+        users: list[User] = db.session.query(User).filter(User.admin_rights < 2).all()
         # Create users variable that contains all users object with admin_rights equal to 1 or 0 
         time: object = datetime.utcnow()
         # Create time viarable and set as current time
@@ -51,7 +51,7 @@ def edit_user(user_id: int):
     # Function that display edit_users.html template when url is /admin_panel/edit_{user_id}
     if (current_user.is_authenticated and current_user.admin_rights == 2):
         # Checks if current user object have admin privilige
-        user: User = User.query.get_or_404(user_id)
+        user: User = db.session.query(User).get_or_404(user_id)
         # Try to find User data in database if not display error 
         form: object = ChangeUserForm()
         # Set form as ChangeUserForm from vibes.forms
@@ -67,7 +67,7 @@ def edit_user(user_id: int):
             # Clearing user category priviliges
             for category in form.categories.data:
                 # Finding Category object from list and append to user category properies
-                cat: Category = Category.query.filter_by(name=category).first()
+                cat: Category = db.session.query(Category).filter_by(name=category).first()
                 user.category.append(cat)
             db.session.commit()
             # Saving changes to database
@@ -92,13 +92,13 @@ def delete_user(user_id):
     # Function that display delete_users.html template when url is /admin_panel/delete_{user_id}
     if (current_user.is_authenticated and current_user.admin_rights == 2):
         # Checks if current user object have admin privilige
-        user: User = User.query.get_or_404(user_id)
+        user: User = db.session.query(User).get_or_404(user_id)
         # Try to find User data in database if not display error 
         form: object = DeleteUserForm()
         # Set form as DeleteUserForm from vibes.forms
         if form.validate_on_submit():
             # Check if submit is correct and delete user from database also change authors of deleted user articles
-            articles_deleted_user: Article = Article.query.filter_by(user_id=user.id).all()
+            articles_deleted_user: Article = db.session.query(Article).filter_by(user_id=user.id).all()
             for article in articles_deleted_user:
                 article.user_id = current_user.id
             # Changing article author to prevent erorr on page
@@ -149,7 +149,7 @@ def manage_article():
     # Function that display manage_article.html template when url is /admin_panel/manage_article
     if (current_user.is_authenticated and current_user.admin_rights == 2):
         # Checks if current user object have admin privilige
-        articles: Article = Article.query.all()
+        articles: Article = db.session.query(Article).all()
         # Create articles variable that contains all Article object 
         time = datetime.utcnow()
         # Create time viarable and set as current time
@@ -174,10 +174,10 @@ def create_article():
             if form.image_of_article.data:
                 # Check if user filled form.image_of_article
                 picture_file: str = save_picture(form.image_of_article.data)
-                article: Article = Article(title = form.title.data, image_of_article = picture_file, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
+                article: Article = Article(title = form.title.data, image_of_article = picture_file, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = db.session.query(Category).filter_by(name=form.category.data).first().id , user_id = current_user.id)
                 # Save picture on local storage and set article as new Article object with provided through form data                
             else: 
-                article = Article(title = form.title.data, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = Category.query.filter_by(name=form.category.data).first().id , user_id = current_user.id)
+                article = Article(title = form.title.data, subtitle = form.subtitle.data, content = form.content.data, source = form.source.data, category_id = db.session.query(Category).filter_by(name=form.category.data).first().id , user_id = current_user.id)
                 # Set article as new Article object with provided through form data without image   
             db.session.add(article)
             # Add article to database

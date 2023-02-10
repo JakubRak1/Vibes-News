@@ -1,13 +1,16 @@
 # Vibes-News App
 ___
 ## Technology:
-[![My Skills](https://skillicons.dev/icons?i=py,flask,css,html)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=docker,py,flask,css,html,bootstrap)](https://skillicons.dev)
 
 ## Describtion
-### Flask Application that allow to create and manage articles with full admin, ediotr, user panel
+### Docker image with Flask application and two separately database (PostgreSQL). Application allow to create and manage articles with full admin, editor, user panel.
 ---
-#### Created based on Python 3.10.6 and Flask 2.2.2
-
+#### Created based on Python 3, Flask 2.2.2 and PostgreSQL 12 image from Docker Hub.
+### Docker compose using: 
+#### port 5000 - Python app
+#### port 5432 - PostgreSQL database for page content
+#### port 5433 - PostgreSQL database for password reset tokens  
 ## Features
 * [x] Resset Password through email and tokens
 * [x] Contact to Admin through email
@@ -34,11 +37,11 @@ ___
         * [X] Edit Post
         * [X] Delete Post
 * [x] Post View
-* [ ] Search Post
 * [X] View Post by Category
 ---
 ## How to Lunch
-### Be sure to have instaled on your machine python modules:
+### In order to lunch apllication make sure that you have free free ports 5432, 5433 and 5000 and have installed Docker Desktop
+### Packages  used in Python/Flask app
 1. Flask [(docs)](https://flask.palletsprojects.com/en/2.2.x/)
 1. Flask_Bcrypt [(docs)](https://flask-bcrypt.readthedocs.io/en/1.0.1/)
 1. Flask_Login [(docs)](https://flask-login.readthedocs.io/en/latest/)
@@ -47,14 +50,16 @@ ___
 1. Flask_WTF [(docs)](https://flask-wtf.readthedocs.io/en/1.0.x/)
 1. itsdangerous [(docs)](https://itsdangerous.palletsprojects.com/en/2.1.x/)
 1. Pillow [(docs)](https://pillow.readthedocs.io/en/stable/)
+### Docker Images
+1. Newest Python 3 [(docs)](https://hub.docker.com/_/python)
+1. PostgreSQL 12 [(docs)](https://hub.docker.com/_/postgres)
 
 
-### If you dont have install through pip:
+### To run application make sure that Docker Desktop is runing, then type on conosle while being inside folder contains app
+
 ```bash
-  pip install Flask, Flask_Bcrypt, Flask_Login, Flask_Mail, Flask_SQLAlchemy,Flask_WTF, itsdangerous, Pillow
+  docker-compose build --no-cache # Build image
+  docker-compose up -d db_first # Run first db in background on port 5432
+  docker-compose up -d db_second # Run second db in background on port 5433
+  docker-compose up pythonapp # Run python app on port 5000
 ```
-### To run application type on conosle while being inside folder contains app
-```bash
-  python run.py
-```
-

@@ -1,6 +1,6 @@
 FROM python:3
 
-LABEL title="Messenger"
+LABEL title="Vibe-News"
 
 WORKDIR /usr/src/app
 

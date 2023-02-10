@@ -14,7 +14,7 @@ articles = Blueprint('articles', __name__)
 @articles.route("/article_<int:article_id>" , methods = ["GET"])
 def article(article_id: int):
     # Function that display article.html template when url is /article_{article_id} 
-    current_article: Article = Article.query.get_or_404(article_id)
+    current_article: Article = db.session.query(Article).get_or_404(article_id)
     # Try to find Article data in database if not display error  
     if (current_user.is_authenticated):
         # Checks if user is loged  
@@ -42,7 +42,7 @@ def article(article_id: int):
 # To access this template user need to be log in
 def edit_article(article_id: int):
     # Function that display edit_article.html template when url is /article/edit_{article_id}
-    current_article: Article = Article.query.get_or_404(article_id)
+    current_article: Article = db.session.query(Article).get_or_404(article_id)
     # Try to find Article data in database if not display error 
     cat_list_id: list = []
     for cat in current_user.category:
@@ -63,7 +63,7 @@ def edit_article(article_id: int):
             current_article.subtitle: str = form.subtitle.data
             current_article.content: str = form.content.data
             current_article.source: str = form.source.data
-            current_article.category_id: int = Category.query.filter_by(name = form.category.data).first().id
+            current_article.category_id: int = db.session.query(Category).filter_by(name = form.category.data).first().id
             # Set current_article properties as data from form
             if form.image_of_article.data:
                 # Check if user filled form.image_of_article
@@ -97,7 +97,7 @@ def edit_article(article_id: int):
 # To access this template user need to be log in
 def delete_article(article_id: int):
     # Function that display delete_article.html template when url is /article/delete_{article_id}
-    current_article = Article.query.get_or_404(article_id)
+    current_article = db.session.query(Article).get_or_404(article_id)
     # Try to find Article data in database if not display error
     cat_list_id: list = []
     for cat in current_user.category:

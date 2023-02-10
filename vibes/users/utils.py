@@ -9,7 +9,7 @@ def send_reset_email(user):
 # Function to create mail content and send it
     token: str = user.get_reset_token()
     # Creates token in variable token based on passed user object
-    if not (Tokens.query.filter_by(str_of_token = token)):
+    if not (db.session.query(Tokens).filter_by(str_of_token = token)):
     # Check if generated token is already in database
         send_reset_email(user)
         # Re run token generation

@@ -2,7 +2,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from flask_mail import Message
 
-from vibes import app, bcrypt, db, mail
+from vibes import bcrypt, db, mail
 from vibes.models import Article, User
 from vibes.users.forms import (ContactAdminFrom, LoginForm, RequestResetForm,
                                ResetPasswordForm)
@@ -21,7 +21,7 @@ def login():
     # Set form as LoginForm from vibes.forms
     if form.validate_on_submit():
         # Check if submit is correct and checks if User object exist in database with provided email 
-        user: User = User.query.filter_by(email=form.email.data).first()
+        user: User = db.session.query(User).filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             # Check if user is object and password of this user is correct with provided from form
             login_user(user)
@@ -54,7 +54,7 @@ def contact_admin():
     # Set form as ContactAdminForm from vibes.forms
     if form.validate_on_submit():
         # Check if submit is correct and sends message to admin email 
-        admin: User = User.query.filter_by(admin_rights = 2).first()
+        admin: User = db.session.query(User).filter_by(admin_rights = 2).first()
         # Finding admin object from database
         msg: Message = Message('Contact through site', sender = form.email.data, recipients=[admin.email])
         msg.body = f'''Message from: {form.fullname.data}
@@ -82,7 +82,7 @@ def reset_password():
     # Set form as RequestResetForm from vibes.forms
     if form.validate_on_submit():
         # Check if submit is correct and checks if User object exist in database with provided email 
-        user: User = User.query.filter_by(email = form.email.data).first()
+        user: User = db.session.query(User).filter_by(email = form.email.data).first()
         if user:
             # Check if user is object and runs function send_reset_email with user object
             send_reset_email(user)
@@ -127,30 +127,30 @@ def reset_token(token):
 @users.route("/news", methods = ["GET"])
 def news_articles():
     page = request.args.get('page', 1, type=int)
-    news_articles = Article.query.filter(Article.category_id == 1).paginate(page=page, per_page = 3)
+    news_articles = db.session.query(Article).filter(Article.category_id == 1).paginate(page=page, per_page = 3)
     return render_template('articles_category.html', title = 'News Articles', Articles = news_articles)
 
 @users.route("/sport", methods = ["GET"])
 def sport_articles():
     page = request.args.get('page', 1, type=int)
-    sport_articles = Article.query.filter(Article.category_id == 2).paginate(page=page, per_page = 3)
+    sport_articles = db.session.query(Article).filter(Article.category_id == 2).paginate(page=page, per_page = 3)
     return render_template('articles_category.html', title = 'Sport Articles', Articles = sport_articles)
 
 @users.route("/buissnes", methods = ["GET"])
 def buissnes_articles():
     page = request.args.get('page', 1, type=int)
-    buissnes_articles = Article.query.filter(Article.category_id == 3).paginate(page=page, per_page = 3)
+    buissnes_articles = db.session.query(Article).filter(Article.category_id == 3).paginate(page=page, per_page = 3)
     return render_template('articles_category.html', title = 'Buissnes Articles', Articles = buissnes_articles)
 
 @users.route("/culture", methods = ["GET"])
 def culture_articles():
     page = request.args.get('page', 1, type=int)
-    culture_articles = Article.query.filter(Article.category_id == 4).paginate(page=page, per_page = 3)
+    culture_articles = db.session.query(Article).filter(Article.category_id == 4).paginate(page=page, per_page = 3)
     return render_template('articles_category.html', title = 'Culture Articles', Articles = culture_articles)
 
 
 @users.route("/game", methods = ["GET"])
 def game_articles():
     page = request.args.get('page', 1, type=int)
-    game_articles = Article.query.filter(Article.category_id == 5).paginate(page=page, per_page = 3)
+    game_articles = db.session.query(Article).filter(Article.category_id == 5).paginate(page=page, per_page = 3)
     return render_template('articles_category.html', title = 'Game News Articles', Articles = game_articles)

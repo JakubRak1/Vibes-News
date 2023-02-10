@@ -5,6 +5,7 @@ from wtforms import (BooleanField, PasswordField, SelectField,
                      TextAreaField)
 from wtforms.validators import Email, Length, ValidationError, data_required
 
+from vibes import db
 from vibes.models import Article, Category, User
 
 
@@ -21,7 +22,7 @@ class ChangeUserForm (FlaskForm):
 
     def validate_username(self, username):
         # Function to verify if new variable username exist in database 
-        user = User.query.filter_by(username = username.data).first()
+        user = db.session.query(User).filter_by(username = username.data).first()
         # If in database there is User with variable username, user variable contains User object and if not variable is None 
         if user and username!=self.username:
             # Check if user is object and check if username variable is not changed
@@ -30,7 +31,7 @@ class ChangeUserForm (FlaskForm):
 
     def validate_email(self, email):
         # Function to verify if new variable email exist in database
-        user = User.query.filter_by(email = email.data).first()
+        user = db.session.query(User).filter_by(email = email.data).first()
         # If in database there is User with variable email, user variable contains User object and if not variable is None  
         if user and email!=self.email:
             # Check if user is object and check if email variable is not changed
@@ -54,7 +55,7 @@ class RegisterForm (FlaskForm):
 
     def validate_username(self, username):
         # Function to verify if variable username exist in database
-        user = User.query.filter_by(username = username.data).first()
+        user = db.session.query(User).filter_by(username = username.data).first()
         # If in database there is User with variable username, user variable contains User object and if not variable is None 
         if user:
             # Check if user is object
@@ -63,7 +64,7 @@ class RegisterForm (FlaskForm):
 
     def validate_email(self, email):
         # Function to verify if variable email exist in database
-        user = User.query.filter_by(email = email.data).first()
+        user = db.session.query(User).filter_by(email = email.data).first()
         # If in database there is User with variable email, user variable contains User object and if not variable is None  
         if user:
              # Check if user is object
@@ -83,7 +84,7 @@ class CreateArticleForm (FlaskForm):
 
     def validate_title(self, title):
         # Function to verify if new variable title exist in database
-        article = Article.query.filter_by(title = title.data).first()
+        article = db.session.query(Article).filter_by(title = title.data).first()
         # If in database there is Article with variable title, article variable contains Article object and if not variable is None 
         if article:
             # Check if article is object

@@ -30,12 +30,24 @@
                         {% if user.category == [] %}
                             <td  class="text-center">None</td>
                         {% else %}
-                            <td  class="text-center">{{user.category}}</td>
+                            <td  class="text-center">
+                                {% for cat in user.category %}
+                                <div>
+                                    {{cat}}
+                                </div>
+                                {% endfor %}
+                            </td>
                         {% endif %}
                         {% if user.articles == [] %}
                             <td  class="text-center">None</td>
                         {% else %}
-                            <td  class="text-center">{{user.articles}}</td>
+                            <td  style="max-width: 150px;">
+                                {% for article in user.articles %}
+                                <div class="text-center text-truncate" style="max-width: 150px;">
+                                    {{article}}
+                                </div>
+                                {% endfor %}
+                            </td>
                         {% endif %}
                     {% if current_user.admin_rights == 2 %}
                         <td  class="text-center">

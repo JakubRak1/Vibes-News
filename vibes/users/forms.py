@@ -1,6 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, SubmitField
-from wtforms.validators import data_required, Length, Email, EqualTo, ValidationError
+from wtforms import PasswordField, StringField, SubmitField, TextAreaField
+from wtforms.validators import (Email, EqualTo, Length, ValidationError,
+                                data_required)
+
+from vibes import db
 from vibes.models import User
 
 
@@ -28,7 +31,7 @@ class RequestResetForm (FlaskForm):
     
     def validate_email(self, email):
         # Function to verify if variable email exist in database
-        user = User.query.filter_by(email = email.data).first()
+        user = db.session.query(User).filter_by(email = email.data).first()
         # If in database there is User with variable email, user variable contains User object and if not variable is None 
         if not user:
             # Check if user is object
